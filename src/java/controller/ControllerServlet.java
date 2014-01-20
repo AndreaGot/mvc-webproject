@@ -4,7 +4,14 @@
  */
 package controller;
 
+import db.DBManager;
+import db.User;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +34,13 @@ public class ControllerServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    private DBManager manager;
+
+    @Override
+    public void init() throws ServletException {
+        // inizializza il DBManager dagli attributi di Application
+        this.manager = (DBManager) super.getServletContext().getAttribute("dbmanager");
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -56,11 +69,16 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    String nome;
-    nome = request.getParameter("user").toString();
-    request.setAttribute("styles", nome);
-    RequestDispatcher view = request.getRequestDispatcher("home.jsp");
-    view.forward(request, response); 
+        String nome;
+        nome = request.getParameter("user").toString();
+        request.setAttribute("styles", nome);
+        try {
+            request.setAttribute("uno", manager.fakeQuery(request));
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        RequestDispatcher view = request.getRequestDispatcher("home.jsp");
+        view.forward(request, response);
     }
 
     /**

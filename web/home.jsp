@@ -16,6 +16,7 @@
         <h1>Hello World!</h1>
         
     <c:out value="${styles}"/>
+    <c:out value="${uno}"/>
         
     <c:out value="ciao"/>
     </body>
