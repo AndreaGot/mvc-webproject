@@ -9,10 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Benvenuto! Effettua il Login.</h1>
+         <input type="text" name="username" value="user" />
+            <input type="text" name="password" value="pass" />
+            <input type="submit" value="ok" name="ok" />
+
+            
+            <form name="form_registrazione" action="ControllerServlet" method="POST">
+
+                <%session.setAttribute("azione", 1); %>
+            <input type="submit" value="registrati!" name="registrazione" />
+
+        </form>
+        
 
     </body>
 </html>

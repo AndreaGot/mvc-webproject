@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -69,6 +70,7 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String nome;
         nome = request.getParameter("user").toString();
         request.setAttribute("styles", nome);
@@ -79,7 +81,15 @@ public class ControllerServlet extends HttpServlet {
         }
         RequestDispatcher view = request.getRequestDispatcher("home.jsp");
         view.forward(request, response);
-    }
+        
+       
+        
+       int azione= (Integer) session.getAttribute("azione");
+        
+       switch(azione){
+           case 1: 
+               
+       }}
 
     /**
      * Returns a short description of the servlet.
