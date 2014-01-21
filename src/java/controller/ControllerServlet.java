@@ -71,25 +71,21 @@ public class ControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String nome;
-        nome = request.getParameter("user").toString();
-        request.setAttribute("styles", nome);
-        try {
-            request.setAttribute("uno", manager.fakeQuery(request));
-        } catch (SQLException ex) {
-            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        RequestDispatcher view = request.getRequestDispatcher("home.jsp");
-        view.forward(request, response);
+        //String nome;
+        //nome = request.getParameter("user").toString();
+        //request.setAttribute("styles", nome);
+        //try {
+         //   request.setAttribute("uno", manager.fakeQuery(request));
+        //} catch (SQLException ex) {
+         //   Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+       // }
+        //RequestDispatcher view = request.getRequestDispatcher("home.jsp");
+        //view.forward(request, response);
         
        
         
-       int azione= (Integer) session.getAttribute("azione");
-        
-       switch(azione){
-           case 1: 
-               
-       }}
+       
+    }
 
     /**
      * Returns a short description of the servlet.

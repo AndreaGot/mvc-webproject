@@ -18,13 +18,26 @@
             <input type="submit" value="ok" name="ok" />
 
             
-            <form name="form_registrazione" action="ControllerServlet" method="POST">
+            <form name="form_registrazione" action="home.jsp" >
 
-                <%session.setAttribute("azione", 1); %>
+               
+                
             <input type="submit" value="registrati!" name="registrazione" />
 
-        </form>
-        
+       </form>
+         <form name="form_login" action="login.jsp" >
 
+               
+                
+            <input type="submit" value="login!" name="login" />
+
+       </form>
+
+
+                
+                
+          
+
+        
     </body>
 </html>
