@@ -5,7 +5,7 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="salva_nome" class="beans.salva_nome" scope="page"/>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +19,7 @@
         
         <input type="text" name="nome" value="nome" />
    
-    <% out.println(salva_nome.salva_in_db("nome"));%>
+    
         
     
         

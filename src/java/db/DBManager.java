@@ -561,15 +561,6 @@ public class DBManager implements Serializable {
 
     }
 
-    public String fakeQuery(HttpServletRequest req) throws SQLException {
-        stm = connect.prepareStatement("SELECT * FROM `utente` where `Id_utente` = 1");
-        ResultSet rs = stm.executeQuery();
-         try {
-        return rs.getString("Username");
-        } catch (Exception e) {
-            return "1";
-        }
-        
-    }
+
     
 }
