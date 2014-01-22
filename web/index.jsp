@@ -4,7 +4,7 @@
     Author     : ANDre1
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" session="true"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,17 +18,17 @@
             <input type="submit" value="ok" name="ok" />
 
             
-            <form name="form_registrazione" action="home.jsp" >
+            <form name="form_registrazione" action="ControllerServlet" method="POST" >
 
-               
+                 <input type="hidden" value="registra" name="azione" />
                 
             <input type="submit" value="registrati!" name="registrazione" />
 
        </form>
-         <form name="form_login" action="login.jsp" >
+         <form name="form_login" action="ControllerServlet" method="POST" >
 
                
-                
+             <input type="hidden" value="login" name="azione" />
             <input type="submit" value="login!" name="login" />
 
        </form>

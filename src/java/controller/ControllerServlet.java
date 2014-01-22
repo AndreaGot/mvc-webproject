@@ -7,6 +7,7 @@ package controller;
 import db.DBManager;
 import db.User;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,8 @@ import javax.servlet.http.HttpSession;
 public class ControllerServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -45,8 +45,7 @@ public class ControllerServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -59,8 +58,7 @@ public class ControllerServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -70,21 +68,20 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
-        //String nome;
-        //nome = request.getParameter("user").toString();
-        //request.setAttribute("styles", nome);
-        //try {
-         //   request.setAttribute("uno", manager.fakeQuery(request));
-        //} catch (SQLException ex) {
-         //   Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-       // }
-        //RequestDispatcher view = request.getRequestDispatcher("home.jsp");
-        //view.forward(request, response);
-        
-       
-        
-       
+
+        String azione = request.getParameter("azione");
+        RequestDispatcher view;
+
+        if (azione.equals("registra")) {
+            view = request.getRequestDispatcher("home.jsp");
+            view.forward(request, response);
+        } else if (azione.equals("login")) {
+            view = request.getRequestDispatcher("login.jsp");
+            view.forward(request, response);
+        }
+
     }
 
     /**
