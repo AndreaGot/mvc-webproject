@@ -94,6 +94,8 @@ public class DBManager implements Serializable {
      * @return null se l'utente non è autenticato, un oggetto User se l'utente
      * esiste ed è autenticato
      */
+    
+    
     public User authenticate(String username, String password) throws SQLException {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
@@ -125,6 +127,42 @@ public class DBManager implements Serializable {
             // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
             stm.close();
         }
+
+    }
+    
+     /**
+     *Inserisce nel DB i campi della registrazione
+     *
+     * @param username il nome utente
+     * @param password la password
+     * @param email l'email
+     * @param nome_completo il nome completo
+     * @return null
+     * @throws java.sql.SQLException
+     */
+  public boolean registrazione(String username, String password,String email,String nome_completo) throws SQLException {
+
+        // usare SEMPRE i PreparedStatement, anche per query banali. 
+        // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
+
+        stm = connect.prepareStatement("INSERT INTO `utente` (`Username`,`password`,`Email`,`Nome_completo`) VALUES (?,?,?,?); ");
+        try {
+            stm.setString(1, username);
+            stm.setString(2, password);
+            stm.setString(3, email);
+            stm.setString(4, nome_completo);
+            
+            stm.executeUpdate();
+
+
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return true;
+        
 
     }
 

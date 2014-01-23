@@ -36,6 +36,7 @@ public class ControllerServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private DBManager manager;
+    private Boolean registrazione;
 
     @Override
     public void init() throws ServletException {
@@ -72,16 +73,34 @@ public class ControllerServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         String azione = request.getParameter("azione");
+        
         RequestDispatcher view;
-
-        if (azione.equals("registra")) {
-            view = request.getRequestDispatcher("home.jsp");
+        if (azione == null){
+        
+        }
+        else if (azione.equals("registra")) {
+            view = request.getRequestDispatcher("RegistrationPage.jsp");
             view.forward(request, response);
         } else if (azione.equals("login")) {
             view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
         }
 
+        //Inserimento dati registrazione nel DB
+       
+        String username= request.getParameter("username").toString();
+        String password= request.getParameter("password").toString();
+        String email= request.getParameter("email").toString();
+        String nome_completo= request.getParameter("nome_completo").toString();
+        
+        User user;
+        try {
+            boolean registrazione1= manager.registrazione(username, password, email, nome_completo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     /**

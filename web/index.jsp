@@ -17,54 +17,43 @@
     </head>
     <body>
 
-        <div class="panel panel-danger">
-           
-                
+
+        <form name="form1" action="LoginServlet" method="POST">
+
+            <input type="text" name="username"   value="user" />
+
+            <input type="password" name="password" autocomplete="off" value="pass" />
+
+
+
+
+            <%
+                if (request.getAttribute("message") == null) {
+                    out.println(" ");
+                } else {
+                    out.println(request.getAttribute("message"));
+
+                }
+
+            %> 
+
+
+
+            <input type="submit" value="ACCEDI" name="ok" />
             
-            <div class="login-body">
-                <div class="panel-body">
-                    <h3 class="panel-title">LOGIN</h3>
-                    <form name="form1" action="LoginServlet" method="POST">
-                        <div class="username">
-                            <div id="username_icon">
-                                <span class="glyphicon glyphicon-user"></span>
-                            </div>
-                            <div id="username_textbox">
-                                <input type="text" name="username"   value="user" />
-                            </div>
-                        </div>
-                        <div class="password">
-                            <div id="password_icon">
-                                <span class="glyphicon glyphicon-lock"></span>
-                            </div>
-                            <div id="password_textbox">
-                                <input type="password" name="password" autocomplete="off" value="pass" />
-                            </div>
-                        </div>
+        </form>
 
-
-                        <div class="message">
-                            <%
-                                if (request.getAttribute("message") == null) {
-                                    out.println(" ");
-                                } else {
-                                    out.println(request.getAttribute("message"));
-
-                                }
-
-                            %> 
-                        </div>
-
-                        <div class="submit_button">
-                            <input type="submit" value="ACCEDI" name="ok" />
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <form name="registrazione" action="ControllerServlet" method="POST" >
+            
+                <input type="hidden" value="registra" name="azione" />
+             <input type="submit" value="REGISTRATI" name="registrazione" />
+                
+            </form>
+            
 
 
 
-        </div>
+
 
 
 
