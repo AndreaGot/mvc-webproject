@@ -20,8 +20,8 @@
 
         <form name="form1" action="ControllerServlet" method="POST">
 
-            <input type="text" name="username"   value="user" />
-            <input type="password" name="password" autocomplete="off" value="pass" />
+            <input type="text" name="username"   value="username" />
+            <input type="password" name="password" autocomplete="off" value="password" />
             <input type="hidden" value="accedi" name="azione" />
 
             <%
