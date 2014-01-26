@@ -14,11 +14,11 @@ public class Group {
     public String proprietario;
     public String id;
 
-    public String getName() {
+    public String getNome() {
         return nome;
     }
 
-    public void setName(String name) {
+    public void setNome(String name) {
         this.nome = name;
     }
 

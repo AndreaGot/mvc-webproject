@@ -186,7 +186,7 @@ public class DBManager implements Serializable {
             try {
                 while (rs.next()) {
                     Group g = new Group();
-                    g.setName(rs.getString("Nome"));
+                    g.setNome(rs.getString("Nome"));
                     g.setProprietario(rs.getString("Id_proprietario"));
                     g.setId(rs.getString("Id_gruppo"));
                     groups.add(g);
@@ -301,6 +301,7 @@ public class DBManager implements Serializable {
 
 
         } catch (Exception e) {
+             Logger.getLogger(db.DBManager.class.getName()).info(e.getMessage());
             return false;
         } finally {
             // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
@@ -414,6 +415,7 @@ public class DBManager implements Serializable {
 
 
         } catch (Exception e) {
+             Logger.getLogger(db.DBManager.class.getName()).info(e.getMessage());
             return false;
         } finally {
             // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 

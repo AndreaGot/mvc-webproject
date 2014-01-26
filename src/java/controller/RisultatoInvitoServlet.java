@@ -48,7 +48,6 @@ public class RisultatoInvitoServlet extends HttpServlet {
             idutente = manager.trovaIdDaNomeUtente(request);
             fatto = manager.inserisciInvito(request, idutente);
         } catch (SQLException ex) {
-            Logger.getLogger(GroupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         response.setContentType("text/html;charset=UTF-8");

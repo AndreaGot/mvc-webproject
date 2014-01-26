@@ -46,7 +46,6 @@ public class RisultatoNomeServlet extends HttpServlet {
         try {
             fatto = manager.settaNomeGruppo(request);
         } catch (SQLException ex) {
-            Logger.getLogger(GroupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

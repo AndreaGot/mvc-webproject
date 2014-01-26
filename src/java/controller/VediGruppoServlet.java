@@ -49,7 +49,6 @@ public class VediGruppoServlet extends HttpServlet {
         try {
             posts = manager.trovaPost(request);
         } catch (SQLException ex) {
-            Logger.getLogger(GroupServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         response.setContentType("text/html;charset=UTF-8");

@@ -21,6 +21,7 @@
                 <div id='welcome'>
                     <h3> Benvenuto, <%= session.getAttribute("user")%>! </h3>
                     <h3> Il tuo ultimo accesso è stato: <%= session.getAttribute("lastLogin")%>! </h3>
+                    <h3> ${message} </h3>
                 </div>
 
             </div>
@@ -31,13 +32,13 @@
 
             <div class='menu_button'>
                 <div class='gruppo_button'>
-                    <form action='GroupServlet' method = 'POST'>
+                    <form action='ControllerGruppoServlet' method = 'POST'>
                         <input type="hidden" value="vedigruppo" name="azione" />
                         <input type='submit' value='I tuoi gruppi'>
                     </form>
                 </div>
                 <div class='creagruppo_button'>
-                    <form action='CreaGruppoServlet' method='POST'>
+                    <form action='ControllerGruppoServlet' method='POST'>
                         <input type="hidden" value="creagruppo" name="azione" />
                         <input type='submit' value='Crea un gruppo'>
                     </form>
