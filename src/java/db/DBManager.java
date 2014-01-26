@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -94,8 +95,6 @@ public class DBManager implements Serializable {
      * @return null se l'utente non è autenticato, un oggetto User se l'utente
      * esiste ed è autenticato
      */
-    
-    
     public User authenticate(String username, String password) throws SQLException {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
@@ -114,6 +113,8 @@ public class DBManager implements Serializable {
                     user.setUserName(username);
                     user.setName(rs.getString("Nome_completo"));
                     user.setId(rs.getString("Id_utente"));
+                    user.setLastLogin(rs.getString("UltimoAccesso"));
+
                     return user;
                 } else {
                     return null;
@@ -129,9 +130,9 @@ public class DBManager implements Serializable {
         }
 
     }
-    
-     /**
-     *Inserisce nel DB i campi della registrazione
+
+    /**
+     * Inserisce nel DB i campi della registrazione
      *
      * @param username il nome utente
      * @param password la password
@@ -140,7 +141,7 @@ public class DBManager implements Serializable {
      * @return null
      * @throws java.sql.SQLException
      */
-  public boolean registrazione(HttpServletRequest request) throws SQLException {
+    public boolean registrazione(HttpServletRequest request) throws SQLException {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
@@ -151,7 +152,7 @@ public class DBManager implements Serializable {
             stm.setString(2, request.getParameter("password").toString());
             stm.setString(3, request.getParameter("email").toString());
             stm.setString(4, request.getParameter("nome_completo").toString());
-            
+
             stm.executeUpdate();
 
 
@@ -163,7 +164,7 @@ public class DBManager implements Serializable {
             stm.close();
         }
         return true;
-        
+
 
     }
 
@@ -452,10 +453,10 @@ public class DBManager implements Serializable {
         return users;
     }
 
-    public String numeroPost(HttpServletRequest request,String id) throws SQLException {
+    public String numeroPost(HttpServletRequest request, String id) throws SQLException {
 
         HttpSession session = request.getSession(false);
-        
+
         stm = connect.prepareStatement("select count(*) as post from post where Id_autore = ? and Id_gruppo =?");
         try {
             stm.setString(1, id);
@@ -484,9 +485,8 @@ public class DBManager implements Serializable {
         }
 
     }
-    
-    
-     public Boolean inserisciPost(HttpServletRequest req, String post) throws SQLException {
+
+    public Boolean inserisciPost(HttpServletRequest req, String post) throws SQLException {
         HttpSession session = req.getSession(false);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -496,7 +496,7 @@ public class DBManager implements Serializable {
         try {
             stm.setString(1, req.getParameter("passaID"));
             stm.setString(2, session.getAttribute("userid").toString());
-            stm.setString(3,post);
+            stm.setString(3, post);
             stm.setString(4, dateFormat.format(date));
 
             stm.executeUpdate();
@@ -510,15 +510,15 @@ public class DBManager implements Serializable {
         }
         return true;
     }
-    
+
     public Boolean inserisciFile(HttpServletRequest req, String path, String nome) throws SQLException {
         HttpSession session = req.getSession(false);
 
         stm = connect.prepareStatement("INSERT INTO `post_file`( `Id_gruppo`, `File`,`Nome`,`id_autore`) VALUES (?,?,?,?)");
         try {
             stm.setString(1, session.getAttribute("idgruppo").toString());
-            stm.setString(2,path);
-            stm.setString(3,nome);
+            stm.setString(2, path);
+            stm.setString(3, nome);
             stm.setString(4, session.getAttribute("userid").toString());
 
             stm.executeUpdate();
@@ -532,12 +532,10 @@ public class DBManager implements Serializable {
         }
         return true;
     }
-    
-    
-    
-    public String trovaFileLink(HttpServletRequest request,String id) throws SQLException {
 
-        
+    public String trovaFileLink(HttpServletRequest request, String id) throws SQLException {
+
+
         stm = connect.prepareStatement("SELECT `File` FROM `post_file` WHERE `Nome`= ? AND `Id_gruppo` = ?");
         try {
             stm.setString(1, id);
@@ -566,11 +564,11 @@ public class DBManager implements Serializable {
         }
 
     }
-    
-    public String dataPost(HttpServletRequest request,String id) throws SQLException {
+
+    public String dataPost(HttpServletRequest request, String id) throws SQLException {
 
         HttpSession session = request.getSession(false);
-        
+
         stm = connect.prepareStatement("SELECT `Data` FROM `post` WHERE `Id_autore` = ? and `Id_gruppo` =? ORDER BY `Data` DESC");
         try {
             stm.setString(1, id);
@@ -600,6 +598,21 @@ public class DBManager implements Serializable {
 
     }
 
+    public Boolean cambiaData(HttpServletRequest req) throws SQLException {
+        HttpSession session = req.getSession(false);
 
-    
+        stm = connect.prepareStatement("UPDATE  `utente` SET  `UltimoAccesso` = NOW( ) WHERE  `Nome_completo` = ?");
+        try {
+            stm.setString(1, session.getAttribute("user").toString());
+            stm.executeUpdate();
+
+
+        } catch (SQLException e) {
+            return false;
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return true;
+    }
 }

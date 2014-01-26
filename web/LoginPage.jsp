@@ -4,21 +4,23 @@
     Author     : ANDre1
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" session="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>LoginPage</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
     <body>
 
         <div class='panel panel-default' id='titolohome'>
             <div class='saluti'>
                 <div id='welcome'>
-                    <h3> Benvenuto  " + session.getAttribute("user") + "." + "</h3>
+                    <h3> Benvenuto, <%= session.getAttribute("user")%>! </h3>
+                    <h3> Il tuo ultimo accesso è stato: <%= session.getAttribute("lastLogin")%>! </h3>
                 </div>
 
             </div>
@@ -30,16 +32,19 @@
             <div class='menu_button'>
                 <div class='gruppo_button'>
                     <form action='GroupServlet' method = 'POST'>
+                        <input type="hidden" value="vedigruppo" name="azione" />
                         <input type='submit' value='I tuoi gruppi'>
                     </form>
                 </div>
                 <div class='creagruppo_button'>
                     <form action='CreaGruppoServlet' method='POST'>
+                        <input type="hidden" value="creagruppo" name="azione" />
                         <input type='submit' value='Crea un gruppo'>
                     </form>
                 </div>
                 <div class='logout_button'>
-                    <form action='LogoutServlet' method='POST'>
+                    <form action='ControllerGruppoServlet' method='POST'>
+                        <input type="hidden" value="logout" name="azione" />
                         <input type='submit' value='Logout'>
                     </form>
                     <br>
@@ -52,26 +57,30 @@
             <div class='titolo_inviti'>
                 LISTA DEI TUOI INVITI:
             </div>
-
-            <div class='inviti'>
-                <h3> Non hai nessun invito in questo momento! </h3>
-            </div>
-
-            <div class='inviti_blocco'>
-                <div class='lista_inviti'>
-                    Un invito da " + i.owner + " per il gruppo " + i.nomeGruppo);
+            <c:if test="${empty listaInviti}">
+                <div class='inviti'>
+                    <h3> Non hai nessun invito in questo momento! </h3>
                 </div>
-                <form action='InvitoRispostaServlet' method='POST'>
-                    <input type='hidden' name='idgruppo' value='" + i.idGruppo + "'>
+            </c:if>
+            <div class='inviti_blocco'>
 
-                    <div class='accetta_invito'>
-                        <input type='submit' name='risposta' value='Accetta'>
+                <c:forEach var="i" items="${listaInviti}">    
+                    <div class='lista_inviti'>
+                        Un invito da ${i.owner} per il gruppo ${i.nomeGruppo}
                     </div>
-                    <div class='rifiuta_invito'>
+                    <form action='InvitoRispostaServlet' method='POST'>
+                        <input type='hidden' name='idgruppo' value="${i.idGruppo}">
 
-                        <input type='submit' name='risposta' value='Rifiuta'>
-                    </div>
-                </form>
+                        <div class='accetta_invito'>
+                            <input type='submit' name='risposta' value='Accetta'>
+                        </div>
+                        <div class='rifiuta_invito'>
+
+                            <input type='submit' name='risposta' value='Rifiuta'>
+                        </div>
+                    </form>
+                </c:forEach>  
+
                 <br>
             </div>
 

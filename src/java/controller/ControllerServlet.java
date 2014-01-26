@@ -5,9 +5,12 @@
 package controller;
 
 import db.DBManager;
+import db.Invito;
 import db.User;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -88,7 +91,8 @@ public class ControllerServlet extends HttpServlet {
             view.forward(request, response);
 
         } else if (azione.equals("accedi")) {
-           
+            
+            List<Invito> inviti = new ArrayList<Invito>();
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             // controllo nel DB se esiste un utente con lo stesso username + password
@@ -110,13 +114,21 @@ public class ControllerServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } else {
-
-                // imposto l'utente connesso come attributo di sessione
-                // per adesso e' solo un oggetto String con il nome dell'utente, ma posso metterci anche un oggetto User
-                // con, ad esempio, il timestamp di login
+                
+                
+                session.setAttribute("lastLogin", user.lastLogin);
                 session.setAttribute("user", user.nome_completo);
                 session.setAttribute("userid", user.id);
-
+                
+                try {
+                    manager.cambiaData(request);
+                    inviti = manager.trovaInvito(request);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                session.setAttribute("listaInviti", inviti);
+                
                 RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
                 rd.forward(request, response);
 

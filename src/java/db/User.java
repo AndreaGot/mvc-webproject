@@ -4,9 +4,8 @@
  */
 package db;
 
-
 import java.io.Serializable;
-
+import java.util.Date;
 
 /**
  *
@@ -17,6 +16,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     public String nome_completo;
+    public String lastLogin;
     public String id;
 
     public String getUserName() {
@@ -42,12 +42,20 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-        public String getId() {
+
+    public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(String login) {
+        this.lastLogin = login;
     }
 }
