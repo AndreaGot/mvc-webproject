@@ -16,17 +16,17 @@
         <h1>Benvenuto, compila il form per registrarti!</h1>
         
         <form name="form_completo" action="ControllerServlet" method="POST">
-        <p>Inserisci Username.</p>
-        <input type="text" name="username" value="username" />
-        <p>Inserisci Password.</p>
-        <input type="text" name="password" value="password" />
-        <p>Inserisci nome completo.</p>
-        <input type="text" name="nome_completo" value="nome completo" />
-        <p>Inserisci Email.</p>
-        <input type="text" name="email" value="email" />
+            <p>Inserisci Username.</p>
+            <input type="text" name="username" value="username" />
+            <p>Inserisci Password.</p>
+            <input type="text" name="password" value="password" />
+            <p>Inserisci nome completo.</p>
+            <input type="text" name="nome_completo" value="nome completo" />
+            <p>Inserisci Email.</p>
+            <input type="text" name="email" value="email" />
         
-        
-        <input type="submit" name="conferma" value="conferma!" />
+            <input type="hidden" value="SalvaDatiRegistrazione" name="azione" />
+            <input type="submit" name="conferma" value="conferma!" />
         </form>
     
         

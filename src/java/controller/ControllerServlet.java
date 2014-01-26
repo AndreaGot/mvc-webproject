@@ -5,12 +5,8 @@
 package controller;
 
 import db.DBManager;
-import db.User;
 import java.io.IOException;
-import static java.lang.System.out;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -26,17 +22,9 @@ import javax.servlet.http.HttpSession;
  */
 public class ControllerServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+  
     private DBManager manager;
-    private Boolean registrazione;
+    private Boolean esito;
 
     @Override
     public void init() throws ServletException {
@@ -46,7 +34,8 @@ public class ControllerServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP
+     * <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -59,7 +48,8 @@ public class ControllerServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP
+     * <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -71,36 +61,36 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
-        String azione = request.getParameter("azione");
-        
+        String azione = request.getParameter("azione").toString();
         RequestDispatcher view;
-        if (azione == null){
         
-        }
-        else if (azione.equals("registra")) {
+        
+        if (azione.equals("registra")) {
             view = request.getRequestDispatcher("RegistrationPage.jsp");
             view.forward(request, response);
         } else if (azione.equals("login")) {
             view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
-        }
+        } else if (azione.equals("SalvaDatiRegistrazione")) {
+            //Inserimento dati registrazione nel DB
 
-        //Inserimento dati registrazione nel DB
-       
-        String username= request.getParameter("username").toString();
-        String password= request.getParameter("password").toString();
-        String email= request.getParameter("email").toString();
-        String nome_completo= request.getParameter("nome_completo").toString();
-        
-        User user;
-        try {
-            boolean registrazione1= manager.registrazione(username, password, email, nome_completo);
-        } catch (SQLException ex) {
-            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
+            try {
+                esito = manager.registrazione(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if(esito == true) {
+            request.setAttribute("message", "Iscrizione avvenuta con successo!");
+            } else
+            {
+                request.setAttribute("message", "C'è stato un problema :(");
+            }
+            view = request.getRequestDispatcher("index.jsp");
+            view.forward(request, response);
+
         }
-        
-        
     }
 
     /**

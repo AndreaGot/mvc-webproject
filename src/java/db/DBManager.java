@@ -50,7 +50,7 @@ public class DBManager implements Serializable {
             // Setup the connection with the DB
             connect = DriverManager.getConnection(url, userpass, userpass);
             // Statements allow to issue SQL queries to the database
-
+            System.out.println("Connection Estabilished");
 
         } catch (Exception e) {
             throw e;
@@ -79,7 +79,7 @@ public class DBManager implements Serializable {
     public static void shutdown() {
 
         try {
-            DriverManager.getConnection("jdbc:mysql://localhost:8889/SciGot;shutdown=true");
+            DriverManager.getConnection("jdbc:mysql://localhost:3306/scigot;shutdown=true");
         } catch (SQLException ex) {
             Logger.getLogger(db.DBManager.class.getName()).info(ex.getMessage());
         }
@@ -140,22 +140,23 @@ public class DBManager implements Serializable {
      * @return null
      * @throws java.sql.SQLException
      */
-  public boolean registrazione(String username, String password,String email,String nome_completo) throws SQLException {
+  public boolean registrazione(HttpServletRequest request) throws SQLException {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
 
         stm = connect.prepareStatement("INSERT INTO `utente` (`Username`,`password`,`Email`,`Nome_completo`) VALUES (?,?,?,?); ");
         try {
-            stm.setString(1, username);
-            stm.setString(2, password);
-            stm.setString(3, email);
-            stm.setString(4, nome_completo);
+            stm.setString(1, request.getParameter("username").toString());
+            stm.setString(2, request.getParameter("password").toString());
+            stm.setString(3, request.getParameter("email").toString());
+            stm.setString(4, request.getParameter("nome_completo").toString());
             
             stm.executeUpdate();
 
 
         } catch (SQLException e) {
+            Logger.getLogger(db.DBManager.class.getName()).info(e.getMessage());
             return false;
         } finally {
             // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
