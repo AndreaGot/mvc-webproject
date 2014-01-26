@@ -5,6 +5,7 @@
 package controller;
 
 import db.DBManager;
+import db.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpSession;
  */
 public class ControllerServlet extends HttpServlet {
 
-  
     private DBManager manager;
     private Boolean esito;
 
@@ -60,11 +60,11 @@ public class ControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
         String azione = request.getParameter("azione").toString();
         RequestDispatcher view;
-        
-        
+
+
         if (azione.equals("registra")) {
             view = request.getRequestDispatcher("RegistrationPage.jsp");
             view.forward(request, response);
@@ -73,23 +73,54 @@ public class ControllerServlet extends HttpServlet {
             view.forward(request, response);
         } else if (azione.equals("SalvaDatiRegistrazione")) {
             //Inserimento dati registrazione nel DB
-
-            
             try {
                 esito = manager.registrazione(request);
             } catch (SQLException ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            if(esito == true) {
-            request.setAttribute("message", "Iscrizione avvenuta con successo!");
-            } else
-            {
+
+            if (esito == true) {
+                request.setAttribute("message", "Iscrizione avvenuta con successo!");
+            } else {
                 request.setAttribute("message", "C'è stato un problema :(");
             }
             view = request.getRequestDispatcher("index.jsp");
             view.forward(request, response);
 
+        } else if (azione.equals("accedi")) {
+           
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            // controllo nel DB se esiste un utente con lo stesso username + password
+            User user;
+
+            try {
+                user = manager.authenticate(username, password);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                throw new ServletException(ex);
+            }
+
+            if (user == null) {
+
+                request.setAttribute("message", "Credenziali errate! per favore, riprova!");
+                //rimando al login
+
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
+
+            } else {
+
+                // imposto l'utente connesso come attributo di sessione
+                // per adesso e' solo un oggetto String con il nome dell'utente, ma posso metterci anche un oggetto User
+                // con, ad esempio, il timestamp di login
+                session.setAttribute("user", user.nome_completo);
+                session.setAttribute("userid", user.id);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
+                rd.forward(request, response);
+
+            }
         }
     }
 

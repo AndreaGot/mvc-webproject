@@ -18,14 +18,11 @@
     <body>
 
 
-        <form name="form1" action="LoginServlet" method="POST">
+        <form name="form1" action="ControllerServlet" method="POST">
 
             <input type="text" name="username"   value="user" />
-
             <input type="password" name="password" autocomplete="off" value="pass" />
-
-
-
+            <input type="hidden" value="accedi" name="azione" />
 
             <%
                 if (request.getAttribute("message") == null) {
@@ -38,41 +35,15 @@
             %> 
 
 
-
             <input type="submit" value="ACCEDI" name="ok" />
-            
+
         </form>
 
-            <form name="registrazione" action="ControllerServlet" method="POST" >
-            
-                <input type="hidden" value="registra" name="azione" />
-             <input type="submit" value="REGISTRATI" name="registrazione" />
-                
-            </form>
-            
+        <form name="registrazione" action="ControllerServlet" method="POST" >
 
+            <input type="hidden" value="registra" name="azione" />
+            <input type="submit" value="REGISTRATI" name="registrazione" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </form>
     </body>
-
-
 </html>
