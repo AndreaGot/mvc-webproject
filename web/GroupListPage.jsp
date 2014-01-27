@@ -37,7 +37,7 @@
                     <div class='gestisci_gruppo'>
                         <div class='vedi_gruppo'>
                             <form action='VediGruppoServlet' method='POST' >
-                                <input type='hidden' name='view' value='${g.id}'> ${g.proprietario}
+                                <input type='hidden' name='view' value='${g.id}'>
                                 <input type='submit' value='Vedi Gruppo'>
                             </form>
                         </div>
