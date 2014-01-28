@@ -69,16 +69,16 @@
                     <div class='lista_inviti'>
                         Un invito da ${i.owner} per il gruppo ${i.nomeGruppo}
                     </div>
-                    <form action='InvitoRispostaServlet' method='POST'>
+                    <form action='ControllerGruppoServlet' method='POST'>
                         <input type='hidden' name='idgruppo' value="${i.idGruppo}">
 
                         <div class='accetta_invito'>
                             <input type='submit' name='risposta' value='Accetta'>
                         </div>
                         <div class='rifiuta_invito'>
-
                             <input type='submit' name='risposta' value='Rifiuta'>
                         </div>
+                        <input type="hidden" value="rispostainvito" name="azione" />
                     </form>
                 </c:forEach>  
 

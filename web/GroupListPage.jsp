@@ -22,8 +22,8 @@
         </div>
 
         <div class='content'>
-            
-           
+
+
             <c:if test="${empty listaGruppi}">
                 <div class='inviti'>
                     <h3> Non appartieni a nessun gruppo in questo momento! </h3>
@@ -36,14 +36,16 @@
                     </div>
                     <div class='gestisci_gruppo'>
                         <div class='vedi_gruppo'>
-                            <form action='VediGruppoServlet' method='POST' >
+                            <form action='ControllerGruppoServlet' method='POST' >
+                                <input type="hidden" value="listapost" name="azione" />
                                 <input type='hidden' name='view' value='${g.id}'>
                                 <input type='submit' value='Vedi Gruppo'>
                             </form>
                         </div>
                         <c:if test="${g.proprietario == userid}">
                             <div class='amministra_gruppo'>
-                                <form action='AmministraGruppoServlet' method='POST' >
+                                <form action='ControllerAmministrazioneServlet' method='POST' >
+                                    <input type="hidden" value="amministra" name="azione" />
                                     <input type='hidden' name='id' value=' ${g.id}'>
                                     <input type='submit' value='Amministra'>
                                 </form>
@@ -53,6 +55,11 @@
                 </div>
             </c:forEach>
         </div>
-        <a href='LoginServlet'> Torna alla Home </a>
+        <div class='torna_gruppo'>
+            <form action='CommonFunctionsServlet' method = 'POST'>
+                <input type="hidden" value="home" name="azione" />
+                <input type='submit' value='Torna alla home'>
+            </form>
+        </div>
     </body>
 </html>

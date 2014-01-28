@@ -32,10 +32,11 @@
             </form>
 
 
-            <div class='bottoni_indietro'>
-                <div class='torna_home'>
-                    <a href='LoginServlet'> Torna alla Home </a>
-                </div>
+            <div class='torna_gruppo'>
+                <form action='CommonFunctionsServlet' method = 'POST'>
+                    <input type="hidden" value="home" name="azione" />
+                    <input type='submit' value='Torna alla home'>
+                </form>
             </div>
         </div>
 

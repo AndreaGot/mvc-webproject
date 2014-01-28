@@ -6,9 +6,12 @@ package controller;
 
 import db.DBManager;
 import db.Group;
+import db.Invito;
+import db.Post;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,16 +105,63 @@ public class ControllerGruppoServlet extends HttpServlet {
 
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
-        }
+        } else if (azione.equals("rispostainvito")) {
+            HttpSession session = request.getSession(false);
+            String risposta = request.getParameter("risposta");
+            String idgruppo = request.getParameter("idgruppo");
+            List<Invito> inviti = new ArrayList<Invito>();
 
+            if ("Accetta".equals(risposta)) {
+                session.setAttribute("message", "Invito accettato! Benvenuto nel gruppo!");
+                try {
+
+                    manager.settaInvito(request, idgruppo, "1");
+                    manager.inserisciUtente(request, idgruppo);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if ("Rifiuta".equals(risposta)) {
+                session.setAttribute("message", "Invito rifiutato correttamente");
+                try {
+
+                    manager.settaInvito(request, idgruppo, "2");
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+
+                inviti = manager.trovaInvito(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            session.setAttribute("listaInviti", inviti);
+            RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
+            rd.forward(request, response);
+        } else if (azione.equals("listapost")) {
+
+
+            List<Post> posts = null;
+            
+            try {
+                posts = manager.trovaPost(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("listaPost", posts);
+            //rimando al login
+
+            RequestDispatcher rd = request.getRequestDispatcher("/GroupPage.jsp");
+            rd.forward(request, response);
+        }
 
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

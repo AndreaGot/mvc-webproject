@@ -16,6 +16,14 @@
         <servlet-name>ControllerGruppoServlet</servlet-name>
         <servlet-class>controller.ControllerGruppoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerAmministrazioneServlet</servlet-name>
+        <servlet-class>controller.ControllerAmministrazioneServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommonFunctionsServlet</servlet-name>
+        <servlet-class>controller.CommonFunctionsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>WebappContextListener</servlet-name>
         <url-pattern>/WebappContextListener</url-pattern>
@@ -27,6 +35,14 @@
     <servlet-mapping>
         <servlet-name>ControllerGruppoServlet</servlet-name>
         <url-pattern>/ControllerGruppoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerAmministrazioneServlet</servlet-name>
+        <url-pattern>/ControllerAmministrazioneServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommonFunctionsServlet</servlet-name>
+        <url-pattern>/CommonFunctionsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
