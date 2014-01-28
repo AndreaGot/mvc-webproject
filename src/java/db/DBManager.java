@@ -462,7 +462,7 @@ public class DBManager implements Serializable {
         stm = connect.prepareStatement("select count(*) as post from post where Id_autore = ? and Id_gruppo =?");
         try {
             stm.setString(1, id);
-            stm.setString(2, session.getAttribute("idgruppo").toString());
+            stm.setString(2, request.getParameter("id").toString());
 
             ResultSet rs = stm.executeQuery();
 
@@ -574,7 +574,7 @@ public class DBManager implements Serializable {
         stm = connect.prepareStatement("SELECT `Data` FROM `post` WHERE `Id_autore` = ? and `Id_gruppo` =? ORDER BY `Data` DESC");
         try {
             stm.setString(1, id);
-            stm.setString(2, session.getAttribute("idgruppo").toString());
+            stm.setString(2, request.getParameter("id").toString());
 
             ResultSet rs = stm.executeQuery();
 

@@ -71,6 +71,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             try {
                 groups = manager.trovaGruppo(request);
             } catch (SQLException ex) {
+                 Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             request.setAttribute("listaGruppi", groups);
             //rimando al login
@@ -93,13 +94,13 @@ public class ControllerGruppoServlet extends HttpServlet {
                 fatto2 = manager.inserisciUtente(request, IDGruppo);
 
             } catch (SQLException ex) {
-                Logger.getLogger(RisultatoCreaGruppo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (fatto && fatto2) {
-                session.setAttribute("message", "Gruppo creato con successo!");
+                request.setAttribute("message", "Gruppo creato con successo!");
             } else {
-                session.setAttribute("message", "Gruppo non creato: sicuro non esista già?");
+                request.setAttribute("message", "Gruppo non creato: sicuro non esista già?");
             }
 
 

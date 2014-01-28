@@ -23,7 +23,7 @@
             <input type="text" name="username"   value="username" />
             <input type="password" name="password" autocomplete="off" value="password" />
             <input type="hidden" value="accedi" name="azione" />
-
+            
             <%
                 if (request.getAttribute("message") == null) {
                     out.println(" ");

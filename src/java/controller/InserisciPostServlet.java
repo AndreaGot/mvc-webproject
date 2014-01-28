@@ -103,7 +103,7 @@ public class InserisciPostServlet extends HttpServlet {
 
 
         } catch (SQLException ex) {
-            Logger.getLogger(RisultatoCreaGruppo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InserisciPostServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
