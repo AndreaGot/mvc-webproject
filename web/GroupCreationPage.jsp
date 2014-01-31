@@ -37,6 +37,9 @@
                     <input type='text' name='creaGruppoTextbox' value='Inserire nome gruppo'>
                     <input type="hidden" value="confermagruppo" name="azione" />
                 </div>
+                <div>
+                    <label for="pubblico">Pubblico?</label> <input type="checkbox" name="public" id="pubblico"/>
+                </div>
                 <div class='modifica_bottone'>
                     <input type='submit' value='crea' name='crea' >
                 </div>
