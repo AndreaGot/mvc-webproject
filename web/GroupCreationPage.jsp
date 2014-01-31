@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="Pragma" content="no-cache"> 
-        <meta http-equiv="Cache-Control"      content="no-cache"> 
+        <meta http-equiv="Cache-Control" content="no-cache"> 
         <meta http-equiv="Expires" content="Sat, 01 Dec 2012 00:00:00 GMT">
         <link href='bootstrap/css/bootstrap.css' rel='stylesheet' type='text/css' >
         <title>CreaGruppoServlet</title>
