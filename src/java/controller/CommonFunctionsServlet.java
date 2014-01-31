@@ -29,6 +29,7 @@ public class CommonFunctionsServlet extends HttpServlet {
 
     private DBManager manager;
     List<Group> groups;
+    List<Group> publicGroups;
     
     public void init() throws ServletException {
         // inizializza il DBManager dagli attributi di Application
@@ -56,9 +57,13 @@ public class CommonFunctionsServlet extends HttpServlet {
             
             try {
                 groups = manager.trovaGruppo(request);
+                publicGroups = manager.trovaGruppoPubblico(request);
             } catch (SQLException ex) {
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             request.setAttribute("listaGruppi", groups);
+            request.setAttribute("listaGruppiPubblici", publicGroups);
+            //rimando al login
             RequestDispatcher rd = request.getRequestDispatcher("/GroupListPage.jsp");
             rd.forward(request, response);
         }

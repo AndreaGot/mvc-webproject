@@ -67,6 +67,22 @@
                     </div>
                 </div>
             </c:forEach>
+            <c:forEach var="g" items="${listaGruppiPubblici}"> 
+                <div class='gruppo_blocco'>
+                    <div class='nome_gruppo'>
+                        <h3> ${g.nome} </h3>
+                    </div>
+                    <div class='gestisci_gruppo'>
+                        <div class='vedi_gruppo'>
+                            <form action='ControllerGruppoServlet' method='POST' >
+                                <input type="hidden" value="listapostpubblici" name="azione" />
+                                <input type='hidden' name='view' value='${g.id}'>
+                                <input type='submit' value='Vedi Gruppo'>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
         <div class='torna_gruppo'>
             <form action='CommonFunctionsServlet' method = 'POST'>

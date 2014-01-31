@@ -30,6 +30,7 @@ public class ControllerGruppoServlet extends HttpServlet {
 
     private DBManager manager;
     List<Group> groups;
+    List<Group> publicGroups;
 
     @Override
     public void init() throws ServletException {
@@ -60,7 +61,7 @@ public class ControllerGruppoServlet extends HttpServlet {
         String azione = request.getParameter("azione");
 
         if (azione.equals("logout")) {
-            
+
 
             if (session != null) {
                 session.removeAttribute("user");
@@ -77,10 +78,12 @@ public class ControllerGruppoServlet extends HttpServlet {
 
             try {
                 groups = manager.trovaGruppo(request);
+                publicGroups = manager.trovaGruppoPubblico(request);
             } catch (SQLException ex) {
                 Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             request.setAttribute("listaGruppi", groups);
+            request.setAttribute("listaGruppiPubblici", publicGroups);
             //rimando al login
 
             RequestDispatcher rd = request.getRequestDispatcher("/GroupListPage.jsp");
@@ -90,7 +93,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             rd.forward(request, response);
         } else if (azione.equals("confermagruppo")) {
 
-            
+
             Boolean fatto = false;
             Boolean fatto2 = false;
             String IDGruppo;
@@ -114,7 +117,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
         } else if (azione.equals("rispostainvito")) {
-           
+
             String risposta = request.getParameter("risposta");
             String idgruppo = request.getParameter("idgruppo");
             List<Invito> inviti = new ArrayList<Invito>();
@@ -152,9 +155,14 @@ public class ControllerGruppoServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
         } else if (azione.equals("listapost")) {
-            
+
             session.setAttribute("view", request.getParameter("view"));
             VisualizzaGruppo(request, response);
+
+        } else if (azione.equals("listapostpubblici")) {
+
+            session.setAttribute("view", request.getParameter("view"));
+            VisualizzaGruppoPubblico(request, response);
         } else if (azione.equals("nuovopost")) {
             Boolean inserito = false;
 
@@ -231,7 +239,7 @@ public class ControllerGruppoServlet extends HttpServlet {
     private void VisualizzaGruppo(HttpServletRequest request, HttpServletResponse response) {
         List<Post> posts = null;
         HttpSession session = request.getSession(false);
-        
+
         session.setAttribute("idgruppo", session.getAttribute("view"));
         try {
             posts = manager.trovaPost(request);
@@ -242,12 +250,35 @@ public class ControllerGruppoServlet extends HttpServlet {
         //rimando al login
 
         RequestDispatcher rd = request.getRequestDispatcher("/GroupPage.jsp");
-       
-            try {
-                rd.forward(request, response);
-            } catch (Exception ex) {
-                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-     
+
+        try {
+            rd.forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+        private void VisualizzaGruppoPubblico(HttpServletRequest request, HttpServletResponse response) {
+        List<Post> posts = null;
+        HttpSession session = request.getSession(false);
+
+        session.setAttribute("idgruppo", session.getAttribute("view"));
+        try {
+            posts = manager.trovaPost(request);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("listaPost", posts);
+        //rimando al login
+
+        RequestDispatcher rd = request.getRequestDispatcher("/GroupPagePublic.jsp");
+
+        try {
+            rd.forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

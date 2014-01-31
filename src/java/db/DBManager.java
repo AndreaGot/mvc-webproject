@@ -618,4 +618,35 @@ public class DBManager implements Serializable {
         }
         return true;
     }
+    
+    public List<Group> trovaGruppoPubblico(HttpServletRequest req) throws SQLException {
+
+        HttpSession session = req.getSession(true);
+        stm = connect.prepareStatement("SELECT * FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo = GU.Id_gruppo) WHERE G.pubblico =1 AND G.Nome NOT IN (SELECT G.nome FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo = GU.Id_gruppo)WHERE GU.Id_utente =?)");
+        List<Group> groups = new ArrayList<Group>();
+        try {
+            stm.setString(1, (session.getAttribute("userid").toString()));
+
+            ResultSet rs = stm.executeQuery();
+
+            try {
+                while (rs.next()) {
+                    Group g = new Group();
+                    g.setNome(rs.getString("Nome"));
+                    g.setProprietario(rs.getString("Id_proprietario"));
+                    g.setId(rs.getString("Id_gruppo"));
+                    groups.add(g);
+                }
+            } finally {
+                // ricordarsi SEMPRE di chiudere i ResultSet in un blocco finally 
+                rs.close();
+            }
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return groups;
+    }
+
 }
