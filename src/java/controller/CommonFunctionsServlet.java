@@ -41,6 +41,14 @@ public class CommonFunctionsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+                if (session == null) {
+
+            request.setAttribute("message", "non hai effettuato il login!");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        }
+        
         String azione = request.getParameter("azione");
         
         if (azione.equals("indietro"))
@@ -57,7 +65,7 @@ public class CommonFunctionsServlet extends HttpServlet {
         else if (azione.equals("home"))
         {
              List<Invito> inviti = new ArrayList<Invito>();
-            HttpSession session = request.getSession(false);
+            
             try {
                     manager.cambiaData(request);
                     inviti = manager.trovaInvito(request);

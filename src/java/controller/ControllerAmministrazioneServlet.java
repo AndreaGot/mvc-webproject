@@ -52,6 +52,14 @@ public class ControllerAmministrazioneServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        String username = (String) session.getAttribute("user");
+        if (username == null || username.equals(null)) {
+
+            request.setAttribute("message", "non hai effettuato il login!");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        }
     }
 
     /**
@@ -66,6 +74,15 @@ public class ControllerAmministrazioneServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(false);
+                if (session == null) {
+
+            request.setAttribute("message", "non hai effettuato il login!");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        }
+        
         String azione = request.getParameter("azione");
 
         if (azione.equals("amministra")) {

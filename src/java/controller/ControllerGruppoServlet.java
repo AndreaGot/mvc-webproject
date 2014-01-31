@@ -49,14 +49,18 @@ public class ControllerGruppoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        int ciao;
-        ciao = 1;
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+
+            request.setAttribute("message", "non hai effettuato il login!");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        }
 
         String azione = request.getParameter("azione");
 
         if (azione.equals("logout")) {
-            HttpSession session = request.getSession(false);
+            
 
             if (session != null) {
                 session.removeAttribute("user");
@@ -86,7 +90,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             rd.forward(request, response);
         } else if (azione.equals("confermagruppo")) {
 
-            HttpSession session = request.getSession(false);
+            
             Boolean fatto = false;
             Boolean fatto2 = false;
             String IDGruppo;
@@ -110,7 +114,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
         } else if (azione.equals("rispostainvito")) {
-            HttpSession session = request.getSession(false);
+           
             String risposta = request.getParameter("risposta");
             String idgruppo = request.getParameter("idgruppo");
             List<Invito> inviti = new ArrayList<Invito>();
@@ -148,7 +152,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
         } else if (azione.equals("listapost")) {
-            HttpSession session = request.getSession(false);
+            
             session.setAttribute("view", request.getParameter("view"));
             VisualizzaGruppo(request, response);
         } else if (azione.equals("nuovopost")) {

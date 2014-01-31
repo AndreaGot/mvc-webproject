@@ -80,8 +80,13 @@ public class UploadController extends HttpServlet {
         String dirBase;
         String folder;
         String dirPath;
-        HttpSession session = request.getSession(false);
+       HttpSession session = request.getSession(false);
+        if (session == null) {
 
+            request.setAttribute("message", "non hai effettuato il login!");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        }
 
         folder = session.getAttribute("idgruppo").toString();
         //dirBase = "/Users/ANDre1/Apache_Tomcat/files/";
