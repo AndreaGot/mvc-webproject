@@ -11,12 +11,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Pragma" content="no-cache"> 
+        <meta http-equiv="Cache-Control"      content="no-cache"> 
+        <meta http-equiv="Expires" content="Sat, 01 Dec 2012 00:00:00 GMT">
         <link href='bootstrap/css/bootstrap.css' rel='stylesheet' type='text/css' >
         <title>Servlet VediGruppoServlet</title>
     </head>
 
     <body>
-       <% String username = (String) session.getAttribute("user");
+        <% String username = (String) session.getAttribute("user");
             if (username == null || username.equals(null)) {
 
                 request.setAttribute("message", "non hai effettuato il login!");
@@ -72,7 +75,7 @@
                     </tbody>
                 </table>
 
-                <form action='InserisciPostServlet' method='POST'>
+                <form action='ControllerGruppoServlet' method='POST'>
 
                     <div class='inserisci_commento'>
                         <input type='text' name='contenuto'   value='Scrivi il tuo commento' autocomplete='off' />
@@ -80,12 +83,16 @@
                     <div class='aggiungi_button'>
                         <input type='submit' name='AggiungiPost' value='Aggiungi'/>
                     </div>
-                    <input type='hidden' name='passaID' value='<%= request.getParameter("view")%>'>
+                    <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
+                    <input type="hidden" value="nuovopost" name="azione" />
                 </form>
 
 
 
-                <form enctype='multipart/form-data' method='POST' action='UploadFileServlet'>
+                <form enctype='multipart/form-data' action='UploadController' method='POST' >
+                    <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
+                    <input type="hidden" value="nuovoupload" name="azione" />
+
                     <div class='upload_button'>
                         <input type='submit' value='Upload'>
                     </div>
@@ -93,6 +100,7 @@
                     <div class='sceglifile'>
                         <input class='scegli_button' type='file' name='file'>
                     </div>
+
 
                 </form>
             </div>

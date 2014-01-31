@@ -24,6 +24,14 @@
         <servlet-name>CommonFunctionsServlet</servlet-name>
         <servlet-class>controller.CommonFunctionsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadController</servlet-name>
+        <servlet-class>controller.UploadController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownloadController</servlet-name>
+        <servlet-class>controller.DownloadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>WebappContextListener</servlet-name>
         <url-pattern>/WebappContextListener</url-pattern>
@@ -43,6 +51,14 @@
     <servlet-mapping>
         <servlet-name>CommonFunctionsServlet</servlet-name>
         <url-pattern>/CommonFunctionsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadController</servlet-name>
+        <url-pattern>/UploadController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadController</servlet-name>
+        <url-pattern>/DownloadController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

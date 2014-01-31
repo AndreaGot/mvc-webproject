@@ -241,8 +241,9 @@ public class DBManager implements Serializable {
 
         stm = connect.prepareStatement("SELECT * FROM (scigot.post P INNER JOIN scigot.utente U on U.Id_utente=P.Id_autore) WHERE P.Id_gruppo = ? ORDER BY P.Id_post;");
         List<Post> posts = new ArrayList<Post>();
+        HttpSession session = req.getSession(false);
         try {
-            stm.setString(1, (req.getParameter("view").toString()));
+            stm.setString(1, (session.getAttribute("view").toString()));
 
             ResultSet rs = stm.executeQuery();
 
@@ -496,7 +497,7 @@ public class DBManager implements Serializable {
 
         stm = connect.prepareStatement("INSERT INTO `post`( `Id_gruppo`, `Id_autore`,`contenuto` ,`Data`) VALUES (?,?,?,?)");
         try {
-            stm.setString(1, req.getParameter("passaID"));
+            stm.setString(1, req.getParameter("view"));
             stm.setString(2, session.getAttribute("userid").toString());
             stm.setString(3, post);
             stm.setString(4, dateFormat.format(date));
@@ -536,12 +537,12 @@ public class DBManager implements Serializable {
     }
 
     public String trovaFileLink(HttpServletRequest request, String id) throws SQLException {
-
+        HttpSession session = request.getSession(false);
 
         stm = connect.prepareStatement("SELECT `File` FROM `post_file` WHERE `Nome`= ? AND `Id_gruppo` = ?");
         try {
             stm.setString(1, id);
-            stm.setString(2, request.getParameter("passaID").toString());
+            stm.setString(2, session.getAttribute("view").toString());
 
             ResultSet rs = stm.executeQuery();
 

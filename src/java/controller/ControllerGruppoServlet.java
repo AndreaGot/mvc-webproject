@@ -9,10 +9,10 @@ import db.Group;
 import db.Invito;
 import db.Post;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -49,6 +49,9 @@ public class ControllerGruppoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int ciao;
+        ciao = 1;
 
         String azione = request.getParameter("azione");
 
@@ -71,7 +74,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             try {
                 groups = manager.trovaGruppo(request);
             } catch (SQLException ex) {
-                 Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             request.setAttribute("listaGruppi", groups);
             //rimando al login
@@ -145,20 +148,73 @@ public class ControllerGruppoServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
         } else if (azione.equals("listapost")) {
+            HttpSession session = request.getSession(false);
+            session.setAttribute("view", request.getParameter("view"));
+            VisualizzaGruppo(request, response);
+        } else if (azione.equals("nuovopost")) {
+            Boolean inserito = false;
 
+            String str = request.getParameter("contenuto");
+            String[] array = new String[500];
 
-            List<Post> posts = null;
-            
-            try {
-                posts = manager.trovaPost(request);
-            } catch (SQLException ex) {
-                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Integer i;
+            i = 0;
+
+            for (i = 0; i < 500; i++) {
+                array[i] = "";
             }
-            request.setAttribute("listaPost", posts);
-            //rimando al login
 
-            RequestDispatcher rd = request.getRequestDispatcher("/GroupPage.jsp");
-            rd.forward(request, response);
+
+            Scanner s = new Scanner(str);
+            String post = "";
+            String link = null;
+            i = 0;
+            while (s.hasNext()) {
+                array[i] = s.next();
+                System.out.println(array[i]);
+                i++;
+            }
+            i = 0;
+            for (i = 0; i < array.length; i++) {
+                if (array[i].equals("")) {
+                    break;
+                }
+                if (array[i].startsWith("$$")) {
+                    try {
+                        array[i] = array[i].replace("$$", "");
+                        link = manager.trovaFileLink(request, array[i]);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (link == null) {
+                        post = post + " <a href='http://" + array[i] + "'>" + array[i] + "</a>";
+                    } else {
+                        post = post + " <form action='DownloadController' method='POST'> <input type='hidden' name='link' value='" + link + "'> <input type='submit' value='" + array[i] + "'> </form>";
+
+                    }
+
+                } else if (array[i].startsWith("http://")) {
+                    post = post + " <a href='" + array[i] + "'>" + array[i] + "</a>";
+                } else if (array[i].startsWith("www.")) {
+                    post = post + " <a href='http://" + array[i] + "'>" + array[i] + "</a>";
+                } else {
+                    post = post + " " + array[i];
+                }
+
+
+
+            }
+            System.out.println(post);
+
+            try {
+                inserito = manager.inserisciPost(request, post);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+            VisualizzaGruppo(request, response);
+
         }
 
     }
@@ -167,4 +223,27 @@ public class ControllerGruppoServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void VisualizzaGruppo(HttpServletRequest request, HttpServletResponse response) {
+        List<Post> posts = null;
+        HttpSession session = request.getSession(false);
+        
+        session.setAttribute("idgruppo", session.getAttribute("view"));
+        try {
+            posts = manager.trovaPost(request);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("listaPost", posts);
+        //rimando al login
+
+        RequestDispatcher rd = request.getRequestDispatcher("/GroupPage.jsp");
+       
+            try {
+                rd.forward(request, response);
+            } catch (Exception ex) {
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     
+    }
 }

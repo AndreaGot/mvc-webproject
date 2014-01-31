@@ -12,18 +12,22 @@
     <head>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Pragma" content="no-cache"> 
+        <meta http-equiv="Cache-Control"      content="no-cache"> 
+        <meta http-equiv="Expires" content="Sat, 01 Dec 2012 00:00:00 GMT">
         <title>LoginPage</title>
     </head>
     <body>
-        
-        
+
+
         <% String username = (String) session.getAttribute("user");
-            if (username == null || username.equals(null)) {
+            if (username == null || username.equals(null) || username == "") {
 
                 request.setAttribute("message", "non hai effettuato il login!");
                 RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
             }
+
 
         %>
 
