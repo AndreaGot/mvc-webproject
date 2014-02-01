@@ -186,6 +186,12 @@ public class ControllerServlet extends HttpServlet {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
+                
+                request.setAttribute("message", "Password inviata alla tua mail! controlla la posta in arrivo!");
+                //rimando al login
+
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
 	}
            
         }
