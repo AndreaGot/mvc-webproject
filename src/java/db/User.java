@@ -15,6 +15,7 @@ public class User implements Serializable {
 
     private String username;
     private String password;
+    private String email;
     public String nome_completo;
     public String lastLogin;
     public String id;
@@ -51,6 +52,15 @@ public class User implements Serializable {
         this.id = id;
     }
 
+        public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
     public String getLastLogin() {
         return lastLogin;
     }

@@ -19,7 +19,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import java.util.Properties;
+ 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 /**
  *
  * @author ANDre1
@@ -62,9 +70,9 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession(true);
-       
+
         String azione = request.getParameter("azione").toString();
         RequestDispatcher view;
 
@@ -92,7 +100,7 @@ public class ControllerServlet extends HttpServlet {
             view.forward(request, response);
 
         } else if (azione.equals("accedi")) {
-            
+
             List<Invito> inviti = new ArrayList<Invito>();
             String username = request.getParameter("username");
             String password = request.getParameter("password");
@@ -115,27 +123,73 @@ public class ControllerServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } else {
-                
-                
+
+
                 session.setAttribute("lastLogin", user.lastLogin);
                 session.setAttribute("user", user.nome_completo);
                 session.setAttribute("userid", user.id);
-                
+
                 try {
                     manager.cambiaData(request);
                     inviti = manager.trovaInvito(request);
                 } catch (SQLException ex) {
                     Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 session.setAttribute("listaInviti", inviti);
-                
+
                 RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
                 rd.forward(request, response);
 
             }
+        } else if (azione.equals("recupera")) {
+            view = request.getRequestDispatcher("ForgotPassword.jsp");
+            view.forward(request, response);
+        } else if (azione.equals("inviamail")) {
+
+            User userFound = null;
+
+            final String username = "scigotunitn@gmail.com";
+            final String password = "scigotunitn1";
+            
+            try {
+                userFound = manager.trovaMailUtente(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+ 
+		Session session2 = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
+ 
+		try {
+ 
+			Message message = new MimeMessage(session2);
+			message.setFrom(new InternetAddress("scigotunitn@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(userFound.getEmail()));
+			message.setSubject("Prova");
+			message.setText("Caro " + userFound.getName() + ", la tua password e' " + userFound.getPassword());
+ 
+			Transport.send(message);
+ 
+			System.out.println("Done");
+ 
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+           
         }
-    }
+    
 
     /**
      * Returns a short description of the servlet.

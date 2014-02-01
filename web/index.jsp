@@ -48,5 +48,11 @@
             <input type="submit" value="REGISTRATI" name="registrazione" />
 
         </form>
+        <form name="password" action="ControllerServlet" method="POST" >
+
+            <input type="hidden" value="recupera" name="azione" />
+            <input type="submit" value="Password dimenticata?" name="recupera" />
+
+        </form>
     </body>
 </html>

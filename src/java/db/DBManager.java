@@ -648,5 +648,36 @@ public class DBManager implements Serializable {
         }
         return groups;
     }
+    
+        public User trovaMailUtente(HttpServletRequest request) throws SQLException {
+
+        // usare SEMPRE i PreparedStatement, anche per query banali. 
+        // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
+
+        stm = connect.prepareStatement("select U.Email, U.Nome_completo, U.password from utente U WHERE U.Username = ? ");
+        User user = new User();
+        try {
+            stm.setString(1, request.getParameter("nomeutente"));
+            ResultSet rs = stm.executeQuery();
+
+            try {
+                if (rs.next()) {
+                    
+                    user.setEmail(rs.getString("Email"));
+                    user.setName(rs.getString("Nome_Completo"));
+                    user.setPassword(rs.getString("password"));
+                    
+                }
+            } finally {
+                // ricordarsi SEMPRE di chiudere i ResultSet in un blocco finally 
+                rs.close();
+            }
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return user;
+    }
 
 }
