@@ -64,7 +64,7 @@
                         <tr class='active'>
                             <td>
                                 ${p.autore} 
-                                <img src ="http://${p.link}"/>
+                                <img src ="<c:url value="${p.link}"/>" height ="100px" width="100px"/>
                             </td>
 
                             <td class='contenuto'>

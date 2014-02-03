@@ -298,8 +298,8 @@ public class DBManager implements Serializable {
                         Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    String link = dirPath + p.getId();
-                    p.setLink(link);
+                    String link = dirPath + p.getId() + ".jpg";
+                    p.setLink(head + p.getId() + ".jpg");
                     try {
                         ImageIO.write(image, "jpg",new File(link));
                     } catch (IOException ex) {
