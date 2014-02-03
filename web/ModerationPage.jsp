@@ -26,32 +26,31 @@
         <table id="table_id">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nome</th>
                     <th>Numero Partecipanti</th>
                     <th>Pubblico?</th>
                     <th>Numero Post</th>
                     <th>Vai al gruppo</th>
+                    <th>Chiudi Gruppo </th>
                 </tr>
             </thead>
             <tbody>
+                <c:forEach var="p" items="${modtable}">
                 <tr>
-                    <td>Row 1 Data 1</td>
-                    <td>Row 1 Data 2</td>
-                    <td>etc</td>
+                    <td>${p.id}</td>
+                    <td>${p.nome}</td>
+                    <td>${p.utenti}</td>
+                    <td>${p.pubblico}</td>
+                    <td>${p.post}</td>
+                    <td><input type="submit" value="Vai al gruppo"></td>
+                    <td><input type="submit" value="ChiudiGruppo"></td>
                 </tr>
-                <tr>
-                    <td>Row 2 Data 1</td>
-                    <td>Row 2 Data 2</td>
-                    <td>etc</td>
-                </tr>
+                </c:forEach>
             </tbody>
         </table>
 
 
-        <script>
-            $(document).ready(function() {
-                $("#table_id").dataTable();
-            });
-        </script>
+        
     </body>
 </html>

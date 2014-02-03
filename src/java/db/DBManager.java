@@ -4,13 +4,7 @@
  */
 package db;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,13 +22,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import db.ModClass;
 
 /**
  *
@@ -810,5 +804,36 @@ public class DBManager implements Serializable {
         }
         return groups;
     }
+    
+    public List<ModClass> TabellaMod(HttpServletRequest req) throws SQLException
+    {
+        HttpSession session = req.getSession(false);
+        stm = connect.prepareStatement("SELECT G.Id_gruppo, G.Nome, G.Pubblico, CP.post, CU.utenti FROM gruppo G INNER JOIN contapost CP ON G.Id_gruppo = CP.Id_gruppo INNER JOIN contautenti CU ON G.Id_gruppo = CU.Id_gruppo");
+        List<ModClass> modtable = new ArrayList<ModClass>();
+        try {
 
+            ResultSet rs = stm.executeQuery();
+
+            try {
+                while (rs.next()) {
+                    ModClass mc = new ModClass();
+                    mc.setId(rs.getString("Id_gruppo"));
+                    mc.setNome(rs.getString("Nome"));
+                    mc.setPost(rs.getInt("post"));
+                    mc.setUtenti(rs.getInt("utenti"));
+                    mc.setPubblico(rs.getBoolean("pubblico"));
+                    modtable.add(mc);
+                }
+            } finally {
+                // ricordarsi SEMPRE di chiudere i ResultSet in un blocco finally 
+                rs.close();
+            }
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return modtable;
+    }
+    
 }

@@ -7,6 +7,7 @@ package controller;
 import db.DBManager;
 import db.Group;
 import db.Invito;
+import db.ModClass;
 import db.User;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -198,6 +199,15 @@ public class ControllerServlet extends HttpServlet {
         
         else if (azione.equals("modera"))
         {
+            List<ModClass> table = null;
+            try {
+                table = manager.TabellaMod(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            request.setAttribute("modtable", table);
+            
             RequestDispatcher rd = request.getRequestDispatcher("/ModerationPage.jsp");
             rd.forward(request, response);
         }
