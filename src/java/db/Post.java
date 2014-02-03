@@ -4,6 +4,8 @@
  */
 package db;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.Date;
 
 /**
@@ -16,6 +18,24 @@ public class Post {
     public String Autore;
     public String contenuto;
     public Date data;
+    public Image avatar;
+    public String link;
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Image getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Image avatar) {
+        this.avatar = avatar;
+    }
 
     public String getId() {
         return idPost;

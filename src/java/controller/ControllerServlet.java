@@ -5,6 +5,7 @@
 package controller;
 
 import db.DBManager;
+import db.Group;
 import db.Invito;
 import db.User;
 import java.io.IOException;
@@ -128,6 +129,7 @@ public class ControllerServlet extends HttpServlet {
                 session.setAttribute("lastLogin", user.lastLogin);
                 session.setAttribute("user", user.nome_completo);
                 session.setAttribute("userid", user.id);
+                session.setAttribute("mod", user.moder);
 
                 try {
                     manager.cambiaData(request);
@@ -135,7 +137,7 @@ public class ControllerServlet extends HttpServlet {
                 } catch (SQLException ex) {
                     Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                request.setAttribute("utente", user);
                 session.setAttribute("listaInviti", inviti);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
@@ -193,6 +195,12 @@ public class ControllerServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
 	}
+        
+        else if (azione.equals("modera"))
+        {
+            RequestDispatcher rd = request.getRequestDispatcher("/ModerationPage.jsp");
+            rd.forward(request, response);
+        }
            
         }
     

@@ -32,6 +32,10 @@
         <servlet-name>DownloadController</servlet-name>
         <servlet-class>controller.DownloadController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerPublicServlet</servlet-name>
+        <servlet-class>controller.ControllerPublicServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>WebappContextListener</servlet-name>
         <url-pattern>/WebappContextListener</url-pattern>
@@ -59,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>DownloadController</servlet-name>
         <url-pattern>/DownloadController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerPublicServlet</servlet-name>
+        <url-pattern>/ControllerPublicServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

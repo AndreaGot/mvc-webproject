@@ -48,13 +48,26 @@
                         <h3> ${g.nome} </h3>
                     </div>
                     <div class='gestisci_gruppo'>
-                        <div class='vedi_gruppo'>
-                            <form action='ControllerGruppoServlet' method='POST' >
-                                <input type="hidden" value="listapost" name="azione" />
-                                <input type='hidden' name='view' value='${g.id}'>
-                                <input type='submit' value='Vedi Gruppo'>
-                            </form>
-                        </div>
+                        <c:if test="${g.chiuso == false}">
+                            <div class='vedi_gruppo'>
+                                <form action='ControllerGruppoServlet' method='POST' >
+                                    <input type="hidden" value="listapost" name="azione" />
+                                    <input type='hidden' name='view' value='${g.id}'>
+                                    <input type='submit' value='Vedi Gruppo'>
+                                </form>
+                            </div>
+                        </c:if>
+                        <c:if test="${g.chiuso == true}">
+                            <div class='gestisci_gruppo'>
+                                <div class='vedi_gruppo'>
+                                    <form action='ControllerGruppoServlet' method='POST' >
+                                        <input type="hidden" value="listapostpubblici" name="azione" />
+                                        <input type='hidden' name='view' value='${g.id}'>
+                                        <input type='submit' value='Vedi Gruppo'>
+                                    </form>
+                                </div>
+                            </div>
+                        </c:if>
                         <c:if test="${g.proprietario == userid}">
                             <div class='amministra_gruppo'>
                                 <form action='ControllerAmministrazioneServlet' method='POST' >

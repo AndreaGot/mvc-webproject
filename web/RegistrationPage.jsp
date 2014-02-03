@@ -28,7 +28,8 @@
             <input type="text" name="nome_completo" value="nome completo" />
             <p>Inserisci Email.</p>
             <input type="text" name="email" value="email" />
-
+            Inserisci Avatar.
+            <input type="file" name="avatar" id="avatar">
             <input type="hidden" value="SalvaDatiRegistrazione" name="azione" />
             <input type="submit" name="conferma" value="conferma!" />
         </form>

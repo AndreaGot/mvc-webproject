@@ -13,6 +13,15 @@ public class Group {
     public String nome;
     public String proprietario;
     public String id;
+    public Boolean chiuso;
+
+    public Boolean getChiuso() {
+        return chiuso;
+    }
+
+    public void setChiuso(Boolean chiuso) {
+        this.chiuso = chiuso;
+    }
 
     public String getNome() {
         return nome;

@@ -4,7 +4,20 @@
  */
 package db;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +30,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -114,6 +129,7 @@ public class DBManager implements Serializable {
                     user.setName(rs.getString("Nome_completo"));
                     user.setId(rs.getString("Id_utente"));
                     user.setLastLogin(rs.getString("UltimoAccesso"));
+                    user.setModer(rs.getBoolean("mod"));
 
                     return user;
                 } else {
@@ -145,13 +161,21 @@ public class DBManager implements Serializable {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
-
-        stm = connect.prepareStatement("INSERT INTO `utente` (`Username`,`password`,`Email`,`Nome_completo`) VALUES (?,?,?,?); ");
+        FileInputStream fis = null;
+        stm = connect.prepareStatement("INSERT INTO `utente` (`Username`,`password`,`Email`,`Nome_completo`, `Avatar`) VALUES (?,?,?,?,?); ");
         try {
             stm.setString(1, request.getParameter("username").toString());
             stm.setString(2, request.getParameter("password").toString());
             stm.setString(3, request.getParameter("email").toString());
             stm.setString(4, request.getParameter("nome_completo").toString());
+            File image = new File(request.getParameter("avatar").toString());
+            try {
+                fis = new FileInputStream(image);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            stm.setBinaryStream(5, (InputStream) fis, (int) (image.length()));
 
             stm.executeUpdate();
 
@@ -189,6 +213,7 @@ public class DBManager implements Serializable {
                     g.setNome(rs.getString("Nome"));
                     g.setProprietario(rs.getString("Id_proprietario"));
                     g.setId(rs.getString("Id_gruppo"));
+                    g.setChiuso(rs.getBoolean("Chiuso"));
                     groups.add(g);
                 }
             } finally {
@@ -237,7 +262,24 @@ public class DBManager implements Serializable {
     }
 
     public List<Post> trovaPost(HttpServletRequest req) throws SQLException {
+        BufferedImage image = null;
+        String head = "images/";
+        String dirPath = req.getServletContext().getRealPath("/") + head;
+        //dirPath = dirBase + folder;
 
+        File theDir = new File(dirPath);
+
+        // if the directory does not exist, create it
+        if (!theDir.exists()) {
+            System.out.println("creating directory: " + head);
+            boolean result = theDir.mkdir();
+
+            if (result) {
+                System.out.println("DIR created");
+            }
+
+        }
+        
 
         stm = connect.prepareStatement("SELECT * FROM (scigot.post P INNER JOIN scigot.utente U on U.Id_utente=P.Id_autore) WHERE P.Id_gruppo = ? ORDER BY P.Id_post;");
         List<Post> posts = new ArrayList<Post>();
@@ -254,6 +296,21 @@ public class DBManager implements Serializable {
                     p.setAutore(rs.getString("Nome_completo"));
                     p.setContenuto(rs.getString("Contenuto"));
                     p.setData(rs.getDate("data"));
+                    Blob blob = rs.getBlob("avatar");
+                    InputStream stream = blob.getBinaryStream(1, blob.length());
+                    try {
+                        image = ImageIO.read(stream);
+                    } catch (IOException ex) {
+                        Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    String link = dirPath + p.getId();
+                    p.setLink(link);
+                    try {
+                        ImageIO.write(image, "jpg",new File(link));
+                    } catch (IOException ex) {
+                        Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     posts.add(p);
 
                 }
@@ -302,7 +359,7 @@ public class DBManager implements Serializable {
 
 
         } catch (Exception e) {
-             Logger.getLogger(db.DBManager.class.getName()).info(e.getMessage());
+            Logger.getLogger(db.DBManager.class.getName()).info(e.getMessage());
             return false;
         } finally {
             // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
@@ -416,7 +473,7 @@ public class DBManager implements Serializable {
 
 
         } catch (Exception e) {
-             Logger.getLogger(db.DBManager.class.getName()).info(e.getMessage());
+            Logger.getLogger(db.DBManager.class.getName()).info(e.getMessage());
             return false;
         } finally {
             // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
@@ -425,12 +482,12 @@ public class DBManager implements Serializable {
         return true;
     }
 
-    public List<User> trovaUtente(HttpServletRequest request) throws SQLException {
+    public List<User> trovaUtente(HttpServletRequest request) throws SQLException, IOException {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
 
-        stm = connect.prepareStatement("select U.username, U.Nome_completo, U.Id_utente from utente U INNER JOIN gruppo_utente GU ON U.Id_utente = GU.Id_utente WHERE GU.Id_gruppo = ? ");
+        stm = connect.prepareStatement("select U.username, U.Nome_completo, U.Id_utente, U.avatar from utente U INNER JOIN gruppo_utente GU ON U.Id_utente = GU.Id_utente WHERE GU.Id_gruppo = ? ");
         List<User> users = new ArrayList<User>();
         try {
             stm.setString(1, request.getParameter("id"));
@@ -618,7 +675,7 @@ public class DBManager implements Serializable {
         }
         return true;
     }
-    
+
     public List<Group> trovaGruppoPubblico(HttpServletRequest req) throws SQLException {
 
         HttpSession session = req.getSession(true);
@@ -648,8 +705,8 @@ public class DBManager implements Serializable {
         }
         return groups;
     }
-    
-        public User trovaMailUtente(HttpServletRequest request) throws SQLException {
+
+    public User trovaMailUtente(HttpServletRequest request) throws SQLException {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
@@ -662,11 +719,11 @@ public class DBManager implements Serializable {
 
             try {
                 if (rs.next()) {
-                    
+
                     user.setEmail(rs.getString("Email"));
                     user.setName(rs.getString("Nome_Completo"));
                     user.setPassword(rs.getString("password"));
-                    
+
                 }
             } finally {
                 // ricordarsi SEMPRE di chiudere i ResultSet in un blocco finally 
@@ -678,6 +735,80 @@ public class DBManager implements Serializable {
             stm.close();
         }
         return user;
+    }
+    
+    
+    public Boolean settaPass(HttpServletRequest req) throws SQLException {
+        HttpSession session = req.getSession(false);
+
+        stm = connect.prepareStatement("UPDATE `utente` SET `password`= ? WHERE `Id_utente` = ? ");
+        try {
+            stm.setString(1, req.getParameter("cambiaPass"));
+            stm.setString(2, (session.getAttribute("userid").toString()));
+
+            stm.executeUpdate();
+
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return true;
+    }
+    
+    public Boolean settaAvatar(HttpServletRequest req) throws SQLException {
+        HttpSession session = req.getSession(false);
+        FileInputStream fis = null;
+        stm = connect.prepareStatement("UPDATE `utente` SET `Avatar`= ? WHERE `Id_utente` = ? ");
+        try {
+            File image = new File(req.getParameter("cambiaAvatar").toString());
+            try {
+                fis = new FileInputStream(image);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            stm.setBinaryStream(1, (InputStream) fis, (int) (image.length()));
+
+            stm.setString(2, (session.getAttribute("userid").toString()));
+
+            stm.executeUpdate();
+
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return true;
+    }
+    
+    public List<Group> trovaTuttiGruppiPubblici(HttpServletRequest req) throws SQLException {
+
+        HttpSession session = req.getSession(true);
+        stm = connect.prepareStatement("SELECT * FROM (scigot.gruppo G) WHERE G.pubblico =1");
+        List<Group> groups = new ArrayList<Group>();
+        try {
+
+            ResultSet rs = stm.executeQuery();
+
+            try {
+                while (rs.next()) {
+                    Group g = new Group();
+                    g.setNome(rs.getString("Nome"));
+                    g.setProprietario(rs.getString("Id_proprietario"));
+                    g.setId(rs.getString("Id_gruppo"));
+                    groups.add(g);
+                }
+            } finally {
+                // ricordarsi SEMPRE di chiudere i ResultSet in un blocco finally 
+                rs.close();
+            }
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return groups;
     }
 
 }

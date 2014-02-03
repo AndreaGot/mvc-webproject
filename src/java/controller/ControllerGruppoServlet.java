@@ -227,6 +227,49 @@ public class ControllerGruppoServlet extends HttpServlet {
 
             VisualizzaGruppo(request, response);
 
+        } else if (azione.equals("listapostpubblici")) {
+
+            session.setAttribute("view", request.getParameter("view"));
+            VisualizzaGruppoPubblico(request, response);
+        } else if (azione.equals("cambiacredenziali")) {
+
+            RequestDispatcher rd = request.getRequestDispatcher("/PassAvatarChangePage.jsp");
+            rd.forward(request, response);
+        } else if (azione.equals("cambiapass")) {
+
+            Boolean fatto = false;
+            try {
+                fatto = manager.settaPass(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (fatto) {
+                request.setAttribute("message", "Password cambiata con successo!");
+            } else {
+                request.setAttribute("message", "Password non cambiata :(");
+            }
+
+
+            RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
+            rd.forward(request, response);
+        } else if (azione.equals("cambiaavatar")) {
+            Boolean fatto = false;
+            try {
+                fatto = manager.settaAvatar(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (fatto) {
+                request.setAttribute("message", "Avatar cambiato con successo!");
+            } else {
+                request.setAttribute("message", "Avatar non cambiato :(");
+            }
+
+
+            RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
+            rd.forward(request, response);
         }
 
     }
@@ -258,8 +301,8 @@ public class ControllerGruppoServlet extends HttpServlet {
         }
 
     }
-    
-        private void VisualizzaGruppoPubblico(HttpServletRequest request, HttpServletResponse response) {
+
+    private void VisualizzaGruppoPubblico(HttpServletRequest request, HttpServletResponse response) {
         List<Post> posts = null;
         HttpSession session = request.getSession(false);
 

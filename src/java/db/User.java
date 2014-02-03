@@ -4,6 +4,8 @@
  */
 package db;
 
+import java.awt.Image;
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,6 +21,16 @@ public class User implements Serializable {
     public String nome_completo;
     public String lastLogin;
     public String id;
+    public Boolean moder;
+
+    public Boolean getModer() {
+        return moder;
+    }
+
+    public void setModer(Boolean moder) {
+        this.moder = moder;
+    }
+
 
     public String getUserName() {
         return username;

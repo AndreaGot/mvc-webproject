@@ -66,6 +66,22 @@
                     </form>
                     <br>
                 </div>
+                <div class='cred_button'>
+                    <form action='ControllerGruppoServlet' method = 'POST'>
+                        <input type="hidden" value="cambiacredenziali" name="azione" />
+                        <input type='submit' value='Cambia Credenziali'>
+                    </form>
+                </div>
+
+                <c:if test="${utente.moder == true}">
+                    <div class='cred_button'>
+                        <form action='ControllerServlet' method = 'POST'>
+                            <input type="hidden" value="modera" name="azione" />
+                            <input type='submit' value='Pannello Moderazione'>
+                        </form>
+                    </div>
+
+                </c:if>
 
 
 

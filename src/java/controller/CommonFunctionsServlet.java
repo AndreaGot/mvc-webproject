@@ -84,6 +84,21 @@ public class CommonFunctionsServlet extends HttpServlet {
                 rd.forward(request, response);
         }
         
+        else if (azione.equals("entra"))
+        {
+            List<Group> gruppi = null;
+            try {
+                gruppi = manager.trovaTuttiGruppiPubblici(request);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("allPublic", gruppi);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("/index1.jsp");
+            rd.forward(request, response);
+     
+        }
+        
     }
 
     /**
