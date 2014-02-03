@@ -12,7 +12,20 @@
         <title>JSP Page</title>
     </head>
     <body>
-                <form class="form-horizontal" id="pd" role="form" name="entra" action="CommonFunctionsServlet" method="POST" >
+
+        <%
+
+            if (request.getAttribute("message") == null) {
+                out.println(" ");
+            } else {
+                out.println("<div class='alert alert-danger'>");
+                out.println(request.getAttribute("message"));
+                out.println("</div>");
+            }
+
+        %> 
+
+        <form class="form-horizontal" id="pd" role="form" name="entra" action="CommonFunctionsServlet" method="POST" >
 
             <input type="hidden" value="entra" name="azione" />
             <div class="form-group">
