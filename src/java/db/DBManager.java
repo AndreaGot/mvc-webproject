@@ -853,4 +853,31 @@ public class DBManager implements Serializable {
         return true;
     }
     
+    
+    public Boolean inserisciPrimoPost(HttpServletRequest req, String post, String IDGruppo) throws SQLException {
+        HttpSession session = req.getSession(false);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+
+        stm = connect.prepareStatement("INSERT INTO `post`( `Id_gruppo`, `Id_autore`,`contenuto` ,`Data`) VALUES (?,?,?,?)");
+        try {
+            stm.setString(1, IDGruppo);
+            stm.setString(2, session.getAttribute("userid").toString());
+            stm.setString(3, post);
+            stm.setString(4, dateFormat.format(date));
+
+            stm.executeUpdate();
+
+
+        } catch (SQLException e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return true;
+    }
+    
 }

@@ -12,6 +12,16 @@
         <title>JSP Page</title>
     </head>
     <body>
+        
+                <% String username = (String) session.getAttribute("user");
+            if (username == null || username.equals(null)) {
+
+                request.setAttribute("message", "non hai effettuato il login!");
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
+            }
+
+        %>
         <div class='content'>
 
             <form action='ControllerGruppoServlet' method='POST'>

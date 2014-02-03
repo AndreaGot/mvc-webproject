@@ -96,18 +96,21 @@ public class ControllerGruppoServlet extends HttpServlet {
 
             Boolean fatto = false;
             Boolean fatto2 = false;
+            Boolean fatto3 = false;
             String IDGruppo;
 
             try {
                 fatto = manager.inserisciGruppo(request);
                 IDGruppo = manager.trovaIdDaGruppo(request);
                 fatto2 = manager.inserisciUtente(request, IDGruppo);
+                fatto3 = manager.inserisciPrimoPost(request, "Benvenuti nel gruppo!",IDGruppo);
+                
 
             } catch (SQLException ex) {
                 Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (fatto && fatto2) {
+            if (fatto && fatto2 && fatto3) {
                 request.setAttribute("message", "Gruppo creato con successo!");
             } else {
                 request.setAttribute("message", "Gruppo non creato: sicuro non esista già?");
