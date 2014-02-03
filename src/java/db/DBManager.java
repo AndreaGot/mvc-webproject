@@ -257,7 +257,7 @@ public class DBManager implements Serializable {
 
     public List<Post> trovaPost(HttpServletRequest req) throws SQLException {
         BufferedImage image = null;
-        String head = "images/";
+        String head = "avatars/";
         String dirPath = req.getServletContext().getRealPath("/") + head;
         //dirPath = dirBase + folder;
 
