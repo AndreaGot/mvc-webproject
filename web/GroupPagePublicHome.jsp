@@ -51,13 +51,14 @@
 
                         <tr class='active'>
                             <td>
-                                ${p.autore}
+                                ${p.autore} 
+                                <img src ="<c:url value="${p.link}"/>" height ="100px" width="100px"/>
                             </td>
 
                             <td class='contenuto'>
                                 ${p.contenuto}
                             </td>
-
+                                $
                             <td>
                                 ${p.data}
                             </td>

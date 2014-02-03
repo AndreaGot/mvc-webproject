@@ -114,6 +114,15 @@
                     </form>
                 </c:forEach>  
 
+                
+                LISTA AGGIORNAMENTI
+                
+                <c:forEach var="i" items="${listaUpdate}">    
+                    <div class='lista_inviti'>
+                         ${i.nomeGruppo} ha avuto delle variazioni!
+                    </div>
+                </c:forEach>  
+                
                 <br>
             </div>
 

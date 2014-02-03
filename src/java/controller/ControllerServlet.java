@@ -8,10 +8,12 @@ import db.DBManager;
 import db.Group;
 import db.Invito;
 import db.ModClass;
+import db.Update;
 import db.User;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -104,6 +106,7 @@ public class ControllerServlet extends HttpServlet {
         } else if (azione.equals("accedi")) {
 
             List<Invito> inviti = new ArrayList<Invito>();
+            List<Update> updates = new ArrayList<Update>();
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             // controllo nel DB se esiste un utente con lo stesso username + password
@@ -133,6 +136,7 @@ public class ControllerServlet extends HttpServlet {
                 session.setAttribute("mod", user.moder);
 
                 try {
+                    updates = manager.trovaAggiornamenti(request);
                     manager.cambiaData(request);
                     inviti = manager.trovaInvito(request);
                 } catch (SQLException ex) {
@@ -140,7 +144,7 @@ public class ControllerServlet extends HttpServlet {
                 }
                 request.setAttribute("utente", user);
                 session.setAttribute("listaInviti", inviti);
-
+                session.setAttribute("listaUpdate", updates);
                 RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
                 rd.forward(request, response);
 

@@ -880,4 +880,36 @@ public class DBManager implements Serializable {
         return true;
     }
     
+    public List<Update> trovaAggiornamenti(HttpServletRequest req) throws SQLException {
+
+        HttpSession session = req.getSession(false);
+        stm = connect.prepareStatement("SELECT G.Id_Gruppo, U.Id_utente, G.Nome, LP.UltimoPost FROM lastposts LP INNER JOIN gruppo_utente GU ON LP.Id_gruppo = GU.Id_gruppo INNER JOIN Gruppo G ON G.Id_gruppo = GU.Id_gruppo INNER JOIN utente U on GU.Id_utente = U.Id_utente WHERE (U.Id_utente = ? OR G.Pubblico = 1) AND U.UltimoAccesso < LP.UltimoPost Group By G.Nome");
+        List<Update> updates = new ArrayList<Update>();
+        try {
+            stm.setString(1, (session.getAttribute("userid").toString()));
+            
+            ResultSet rs = stm.executeQuery();
+
+            try {
+                while (rs.next()) {
+                    Update u = new Update();
+                    u.setIDGruppo(rs.getString("Id_Gruppo"));
+                    u.setIDUtente(rs.getString("Id_utente"));
+                    u.setNomeGruppo(rs.getString("Nome"));
+                    updates.add(u);
+                            
+                }
+            } finally {
+                // ricordarsi SEMPRE di chiudere i ResultSet in un blocco finally 
+                rs.close();
+            }
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return updates;
+
+
+    }
 }
