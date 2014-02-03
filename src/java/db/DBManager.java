@@ -365,12 +365,15 @@ public class DBManager implements Serializable {
     public Boolean settaNomeGruppo(HttpServletRequest req) throws SQLException {
         HttpSession session = req.getSession(false);
 
-        stm = connect.prepareStatement("UPDATE `gruppo` SET `Nome`= ? WHERE `Id_gruppo` = ? AND `Id_proprietario` = ?");
+        stm = connect.prepareStatement("UPDATE `gruppo` SET `Nome`= ?, `Pubblico`= ? WHERE `Id_gruppo` = ? AND `Id_proprietario` = ?");
         try {
             stm.setString(1, req.getParameter("nome"));
-            stm.setString(2, req.getParameter("id"));
-            stm.setString(3, (session.getAttribute("userid").toString()));
-
+            stm.setString(3, req.getParameter("id"));
+            stm.setString(4, (session.getAttribute("userid").toString()));
+            if(req.getParameter("public") == null)
+                stm.setString(2, "0");
+            else
+                stm.setString(2, "1");
             stm.executeUpdate();
 
 
@@ -457,11 +460,15 @@ public class DBManager implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
 
-        stm = connect.prepareStatement("INSERT INTO `gruppo`( `Nome`, `Id_proprietario`, `Data_creazione`) VALUES (?,?,?)");
+        stm = connect.prepareStatement("INSERT INTO `gruppo`( `Nome`, `Id_proprietario`, `Data_creazione`, `Pubblico`) VALUES (?,?,?,?)");
         try {
             stm.setString(1, req.getParameter("creaGruppoTextbox"));
             stm.setString(2, session.getAttribute("userid").toString());
             stm.setString(3, dateFormat.format(date));
+            if(req.getParameter("public") == null)
+                stm.setString(4, "0");
+            else
+                stm.setString(4, "1");
 
             stm.executeUpdate();
 
@@ -883,7 +890,7 @@ public class DBManager implements Serializable {
     public List<Update> trovaAggiornamenti(HttpServletRequest req) throws SQLException {
 
         HttpSession session = req.getSession(false);
-        stm = connect.prepareStatement("SELECT G.Id_Gruppo, U.Id_utente, G.Nome, LP.UltimoPost FROM lastposts LP INNER JOIN gruppo_utente GU ON LP.Id_gruppo = GU.Id_gruppo INNER JOIN Gruppo G ON G.Id_gruppo = GU.Id_gruppo INNER JOIN utente U on GU.Id_utente = U.Id_utente WHERE (U.Id_utente = ? OR G.Pubblico = 1) AND U.UltimoAccesso < LP.UltimoPost Group By G.Nome");
+        stm = connect.prepareStatement("SELECT G.Id_Gruppo, U.Id_utente, G.Nome, LP.UltimoPost FROM lastposts LP INNER JOIN gruppo_utente GU ON LP.Id_gruppo = GU.Id_gruppo INNER JOIN Gruppo G ON G.Id_gruppo = GU.Id_gruppo INNER JOIN utente U on GU.Id_utente = U.Id_utente WHERE (U.Id_utente = ? OR G.Pubblico = 1) AND CAST(U.UltimoAccesso AS DATE) < CAST(LP.UltimoPost AS Date) Group By G.Nome");
         List<Update> updates = new ArrayList<Update>();
         try {
             stm.setString(1, (session.getAttribute("userid").toString()));

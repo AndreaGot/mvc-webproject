@@ -105,6 +105,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             Boolean fatto = false;
             Boolean fatto2 = false;
             Boolean fatto3 = false;
+            
             String IDGruppo;
 
             try {

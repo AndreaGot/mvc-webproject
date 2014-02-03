@@ -39,7 +39,9 @@
                 <div class='modifica_textbox'>
                     <input type='text' name='nome' value='Inserisci il nome'>
                 </div>
-
+                <div>
+                    <label for="pubblico">Pubblico?</label> <input type="checkbox" name="public" id="pubblico"/>
+                </div>
                 <div class='modifica_bottone'>
                     <input type='submit' value='Modifica nome'>
                 </div>
