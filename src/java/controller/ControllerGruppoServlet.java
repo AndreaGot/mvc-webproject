@@ -270,6 +270,17 @@ public class ControllerGruppoServlet extends HttpServlet {
 
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
+        } else if (azione.equals("chiudigruppo")) {
+            
+            Boolean fatto = false;
+            Boolean fatto2 = false;
+            try {
+                fatto = manager.chiudiGruppo(request);
+                fatto2 = manager.inserisciPost(request, "Il gruppo è stato chiuso.");
+            } catch (SQLException ex) {
+                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
 
     }
@@ -299,6 +310,7 @@ public class ControllerGruppoServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
     }
 

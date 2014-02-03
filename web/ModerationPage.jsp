@@ -37,20 +37,42 @@
             </thead>
             <tbody>
                 <c:forEach var="p" items="${modtable}">
-                <tr>
-                    <td>${p.id}</td>
-                    <td>${p.nome}</td>
-                    <td>${p.utenti}</td>
-                    <td>${p.pubblico}</td>
-                    <td>${p.post}</td>
-                    <td><input type="submit" value="Vai al gruppo"></td>
-                    <td><input type="submit" value="ChiudiGruppo"></td>
-                </tr>
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.nome}</td>
+                        <td>${p.utenti}</td>
+                        <td>${p.pubblico}</td>
+                        <td>${p.post}</td>
+                        <td>
+                            <div class='gestisci_gruppo'>
+                                <div class='vedi_gruppo'>
+                                    <form action='ControllerGruppoServlet' method='POST' >
+                                        <input type="hidden" value="listapostpubblici" name="azione" />
+                                        <input type='hidden' name='view' value='${p.id}'>
+                                        <input type='submit' value='Vedi Gruppo'>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <c:if test="${p.chiuso == false}">
+                                <div class='gestisci_gruppo'>
+                                    <div class='vedi_gruppo'>
+                                        <form action='ControllerGruppoServlet' method='POST' >
+                                            <input type="hidden" value="chiudigruppo" name="azione" />
+                                            <input type='hidden' name='view' value='${p.id}'>
+                                            <input type='submit' value='Chiudi Gruppo'>
+                                        </form>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </td>
+                    </tr>
                 </c:forEach>
             </tbody>
         </table>
 
 
-        
+
     </body>
 </html>

@@ -56,4 +56,13 @@ public class ModClass {
     public Boolean pubblico;
     public Integer post;
     public Integer utenti;
+    public Boolean chiuso;
+
+    public Boolean getChiuso() {
+        return chiuso;
+    }
+
+    public void setChiuso(Boolean chiuso) {
+        this.chiuso = chiuso;
+    }
 }

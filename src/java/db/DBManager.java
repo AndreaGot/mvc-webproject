@@ -808,7 +808,7 @@ public class DBManager implements Serializable {
     public List<ModClass> TabellaMod(HttpServletRequest req) throws SQLException
     {
         HttpSession session = req.getSession(false);
-        stm = connect.prepareStatement("SELECT G.Id_gruppo, G.Nome, G.Pubblico, CP.post, CU.utenti FROM gruppo G INNER JOIN contapost CP ON G.Id_gruppo = CP.Id_gruppo INNER JOIN contautenti CU ON G.Id_gruppo = CU.Id_gruppo");
+        stm = connect.prepareStatement("SELECT G.chiuso, G.Id_gruppo, G.Nome, G.Pubblico, CP.post, CU.utenti FROM gruppo G INNER JOIN contapost CP ON G.Id_gruppo = CP.Id_gruppo INNER JOIN contautenti CU ON G.Id_gruppo = CU.Id_gruppo");
         List<ModClass> modtable = new ArrayList<ModClass>();
         try {
 
@@ -822,6 +822,7 @@ public class DBManager implements Serializable {
                     mc.setPost(rs.getInt("post"));
                     mc.setUtenti(rs.getInt("utenti"));
                     mc.setPubblico(rs.getBoolean("pubblico"));
+                    mc.setChiuso(rs.getBoolean("chiuso"));
                     modtable.add(mc);
                 }
             } finally {
@@ -834,6 +835,22 @@ public class DBManager implements Serializable {
             stm.close();
         }
         return modtable;
+    }
+    
+    public Boolean chiudiGruppo(HttpServletRequest req) throws SQLException {
+        HttpSession session = req.getSession(false);
+
+        stm = connect.prepareStatement("UPDATE `gruppo` SET `chiuso`= 1 WHERE `Id_gruppo` = ? ");
+        try {
+            stm.setString(1, req.getParameter("view"));
+            stm.executeUpdate();
+
+
+        } finally {
+            // ricordarsi SEMPRE di chiudere i PreparedStatement in un blocco finally 
+            stm.close();
+        }
+        return true;
     }
     
 }
