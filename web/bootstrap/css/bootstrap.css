@@ -1140,7 +1140,7 @@ pre code {
     .col-sm-9,
     .col-sm-10,
     .col-sm-11 {
-        float: left;
+        
     }
     .col-sm-12 {
         width: 100%;
@@ -7385,8 +7385,8 @@ td.visible-print {
 
 .gruppo_blocco{
     height: 100px;
-    margin-left: 30px;
-    margin-top: 20px;
+   
+   
 }
 
 
@@ -7414,12 +7414,13 @@ td.visible-print {
     height: 50px;
     background-color: #428bca;
     color:white;
+    margin-top: 5px;
 }
 
 .amministra_gruppo{
     float: left;
     margin-left: 20px;
-
+    margin-top:5px;
 }
 
 .amministra_gruppo input{
@@ -7607,15 +7608,19 @@ td.visible-print {
     float: left;
     margin-top: 50px;
 }
-
+.modifica_bottone{
+    height: 100px;
+    margin-top:30px;
+    
+}
 .modifica_bottone input{
     height: 50px;
     width: 166px;
     background-color: #428bca;
     color:white;
     float:left;
-    margin-top: 50px;
-    margin-left: 50px;
+    
+    margin-left: 285px;
 }
 
 
@@ -7631,18 +7636,18 @@ td.visible-print {
 /*loginPage*/
 
 .form-horizontal#pd{
-
+    margin-left: 30px;
     display: -webkit-inline-box;
 }
 
 .form-horizontal#re{
-    margin-left: 50px;
+    margin-left: 175px;
     display: -webkit-inline-box;
 }
 
 .jumbotron h2{
     margin-bottom: 60px;
-    padding-top: 60px;
+    padding-top: 35px;
     border-top: solid #000 1px;
     
 }
@@ -7650,7 +7655,7 @@ td.visible-print {
 .form-group#accedi{
     display: -webkit-inline-box; 
     float: left;
-    margin-left: 100px;
+    margin-left: -30px;
     
 }
 .alert.alert-danger#message{
@@ -7670,6 +7675,15 @@ td.visible-print {
 .col-sm-2.control-label#registra3{
     width: 24%;
 }
+
+.col-sm-2.control-label#recupera{
+    width: 36%;
+}
+
+.col-sm-2.control-label#credenziali{
+    width: 50%;
+}
+
 
 .form-horizontal#re_page{
     margin-top: 60px;
@@ -7697,4 +7711,14 @@ td.visible-print {
 
 .gruppi{
     margin-top: 50px;
+}
+.col-sm-10#b_recupera{
+    margin-top: 20px;
+}
+
+.btn.btn-primary#c_recupera{
+    margin-top: 20px;
+}
+label#ceck{
+    padding-left: 15px;
 }

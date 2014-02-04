@@ -26,34 +26,34 @@
             }
 
         %>
-        <div class='panel panel-default' id='TitoloGruppo'>
-            CREA GRUPPO
-        </div>
 
-        <div class='content'>
+
+        <div class="jumbotron">
+            <h1>CREA GRUPPO</h1>
+
+
+
 
             <form action='ControllerGruppoServlet' method='POST'>
-                <div class='modifica_textbox'>
-                    <input type='text' name='creaGruppoTextbox' value='Inserire nome gruppo'>
-                    <input type="hidden" value="confermagruppo" name="azione" />
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type='text' class="form-control" id="inputPassword3" placeholder="Nome Gruppo" name='creaGruppoTextbox' value='Inserire nome gruppo'>
+                        <input type="hidden" value="confermagruppo" name="azione" />
+                    </div>
                 </div>
                 <div>
-                    <label for="pubblico">Pubblico?</label> <input type="checkbox" name="public" id="pubblico"/>
+                    <label id="ceck" for="pubblico">Gruppo Pubblico </label> <input type="checkbox" name="public" id="pubblico"/>
                 </div>
                 <div class='modifica_bottone'>
-                    <input type='submit' value='crea' name='crea' >
+                    <input type='submit' class="btn btn-primary" value='crea' name='crea' >
                 </div>
 
             </form>
 
 
-            <div class='torna_gruppo'>
-                <form action='CommonFunctionsServlet' method = 'POST'>
-                    <input type="hidden" value="home" name="azione" />
-                    <input type='submit' value='Torna alla home'>
-                </form>
-            </div>
-        </div>
 
+
+        </div>
     </body>
 </html>

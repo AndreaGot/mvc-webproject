@@ -9,16 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
         <title>JSP Page</title>
     </head>
     <body>
-        <form name="form1" action="ControllerServlet" method="POST">
+        <div class="jumbotron">
+            <form name="form1" action="ControllerServlet" method="POST">
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label" id="recupera">Inserire Nome Utente:</label>
+                    <div class="col-sm-10" id="b_recupera">
+                        <input type="text" class="form-control" id="inputPassword3" placeholder="Nome Utente" name="nomeutente" value="Nome utente" />
+                        <input type="hidden" value="inviamail" name="azione" />
 
-            <input type="text" name="nomeutente" value="Nome utente" />
-            <input type="hidden" value="inviamail" name="azione" />
-
-            <input type="submit" value="Recupera" name="ok" />
-
-        </form>
+                        <input type="submit" id="c_recupera" class="btn btn-primary" value="Recupera" name="ok" />
+                    </div>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

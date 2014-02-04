@@ -66,24 +66,24 @@
 
 
             </div>
-<div class='menu_button'>
-            <div class='cred_button'>
-                <form action='ControllerGruppoServlet' method = 'POST'>
-                    <input type="hidden" value="cambiacredenziali" name="azione" />
-                    <input type='submit' class="btn btn-primary" value='Cambia Credenziali'>
-                </form>
-            </div>
-
-            <c:if test="${utente.moder == true}">
+            <div class='menu_button'>
                 <div class='cred_button'>
-                    <form action='ControllerServlet' method = 'POST'>
-                        <input type="hidden" value="modera" name="azione" />
-                        <input type='submit' class="btn btn-primary" value='Pannello Moderazione'>
+                    <form action='ControllerGruppoServlet' method = 'POST'>
+                        <input type="hidden" value="cambiacredenziali" name="azione" />
+                        <input type='submit' class="btn btn-primary" value='Cambia Credenziali'>
                     </form>
                 </div>
 
-            </c:if>
-</div>
+                <c:if test="${utente.moder == true}">
+                    <div class='cred_button'>
+                        <form action='ControllerServlet' method = 'POST'>
+                            <input type="hidden" value="modera" name="azione" />
+                            <input type='submit' class="btn btn-primary" value='Pannello Moderazione'>
+                        </form>
+                    </div>
+
+                </c:if>
+            </div>
 
 
             <div class='titolo_inviti'>

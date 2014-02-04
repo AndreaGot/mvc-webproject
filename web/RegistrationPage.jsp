@@ -19,7 +19,9 @@
     <body>
 
         <div class="jumbotron">
+             
             <h3>Benvenuto, compila il form per registrarti!</h3>
+             
             <form class="form-horizontal" id="re_page" role="form" name="form_completo" action="ControllerServlet" method="POST">
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label" id="registra">Inserisci username</label>
