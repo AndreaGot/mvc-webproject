@@ -14,17 +14,7 @@
     </head>
     <body>
 
-        <%
-
-            if (request.getAttribute("message") == null) {
-                out.println(" ");
-            } else {
-                out.println("<div class='alert alert-danger'>");
-                out.println(request.getAttribute("message"));
-                out.println("</div>");
-            }
-
-        %> 
+        
         <div class="jumbotron">
 
             <h1>Benvenuto!</h1>
@@ -38,6 +28,17 @@
 
 
             </form>
+            <%
+
+            if (request.getAttribute("message") == null) {
+                out.println(" ");
+            } else {
+                out.println("<div class='alert alert-danger' id='message'>");
+                out.println(request.getAttribute("message"));
+                out.println("</div>");
+            }
+
+        %> 
         </div>
     </body>
 </html>

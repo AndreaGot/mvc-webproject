@@ -17,23 +17,54 @@
         <title>Registrati!</title>
     </head>
     <body>
-        <h1>Benvenuto, compila il form per registrarti!</h1>
 
-        <form name="form_completo" action="ControllerServlet" method="POST">
-            <p>Inserisci Username.</p>
-            <input type="text" name="username" value="username" />
-            <p>Inserisci Password.</p>
-            <input type="text" name="password" value="password" />
-            <p>Inserisci nome completo.</p>
-            <input type="text" name="nome_completo" value="nome completo" />
-            <p>Inserisci Email.</p>
-            <input type="text" name="email" value="email" />
-            Inserisci Avatar.
-            <input type="file" name="avatar" id="avatar">
-            <input type="hidden" value="SalvaDatiRegistrazione" name="azione" />
-            <input type="submit" name="conferma" value="conferma!" />
-        </form>
+        <div class="jumbotron">
+            <h3>Benvenuto, compila il form per registrarti!</h3>
+            <form class="form-horizontal" id="re_page" role="form" name="form_completo" action="ControllerServlet" method="POST">
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label" id="registra">Inserisci username</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="username" value="username" />
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label" id="registra">Inserisci password</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="password" value="password" />
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label" id="registra2">Inserisci nome completo</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="nome_completo" value="nome completo" />
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label" id="registra3">Inserisci e-mail</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="email" value="email" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label" id="registra3">Inserisci avatar</label>
+
+                    <input type="file" name="avatar" id="avatar">
+                    <input type="hidden" value="SalvaDatiRegistrazione" name="azione" />
+                    <div class="col-sm-10">
+                        <input type="submit" class="btn btn-primary" id="boh" name="conferma" value="conferma!" />
+                    </div>
+                </div>
+            </form>
+        </div>
 
 
 
