@@ -12,8 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
-                <% String username = (String) session.getAttribute("user");
+
+        <% String username = (String) session.getAttribute("user");
             if (username == null || username.equals(null)) {
 
                 request.setAttribute("message", "non hai effettuato il login!");
@@ -46,5 +46,14 @@
                     </div>
 
                 </form>
+
+                <div class='tasti_indietro'>
+                    <div class='torna_gruppo'>
+                        <form action='CommonFunctionsServlet' method = 'POST'>
+                            <input type="hidden" value="indietro" name="azione" />
+                            <input type='submit' value='Torna ai tuoi gruppi'>
+                        </form>
+                    </div>
+
                 </body>
                 </html>

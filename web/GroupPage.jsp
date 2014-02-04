@@ -119,6 +119,7 @@
                 </div>
                 <div class='torna_gruppo'>
                     <form action='CommonFunctionsServlet' method = 'POST'>
+                        <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
                         <input type="hidden" value="home" name="azione" />
                         <input type='submit' value='Torna alla home'>
                     </form>

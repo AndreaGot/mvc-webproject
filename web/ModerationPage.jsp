@@ -20,8 +20,8 @@
         </script>
     </head>
     <body>
-        
-                <% String username = (String) session.getAttribute("user");
+
+        <% String username = (String) session.getAttribute("user");
             if (username == null || username.equals(null)) {
 
                 request.setAttribute("message", "non hai effettuato il login!");
@@ -81,7 +81,21 @@
                 </c:forEach>
             </tbody>
         </table>
-
+        <div class='tasti_indietro'>
+            <div class='torna_gruppo'>
+                <form action='CommonFunctionsServlet' method = 'POST'>
+                    <input type="hidden" value="indietro" name="azione" />
+                    <input type='submit' value='Torna ai tuoi gruppi'>
+                </form>
+            </div>
+            <div class='torna_gruppo'>
+                <form action='CommonFunctionsServlet' method = 'POST'>
+                    <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
+                    <input type="hidden" value="home" name="azione" />
+                    <input type='submit' value='Torna alla home'>
+                </form>
+            </div>
+        </div>
 
 
     </body>
