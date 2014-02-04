@@ -30,19 +30,26 @@
 
         %>
 
-        <div class='panel panel-default' id='TitoloGruppo'>
-            I MIEI GRUPPI ${userid}
-        </div>
+        <div class="jumbotron">
 
-        <div class='content'>
+
+            
+                <h1>I MIEI GRUPPI:</h1>
+           
+
+
+
 
 
             <c:if test="${empty listaGruppi}">
-                <div class='inviti'>
+               
                     <h3> Non appartieni a nessun gruppo in questo momento! </h3>
-                </div>
+                
             </c:if>
-            <c:forEach var="g" items="${listaGruppi}"> 
+                    
+
+                    <div class="gruppi">       
+             <c:forEach var="g" items="${listaGruppi}"> 
                 <div class='gruppo_blocco'>
                     <div class='nome_gruppo'>
                         <h3> ${g.nome} </h3>
@@ -53,7 +60,7 @@
                                 <form action='ControllerGruppoServlet' method='POST' >
                                     <input type="hidden" value="listapost" name="azione" />
                                     <input type='hidden' name='view' value='${g.id}'>
-                                    <input type='submit' value='Vedi Gruppo'>
+                                    <input type='submit'class="btn btn-primary" value='Vedi Gruppo'>
                                 </form>
                             </div>
                         </c:if>
@@ -63,7 +70,7 @@
                                     <form action='ControllerGruppoServlet' method='POST' >
                                         <input type="hidden" value="listapostpubblici" name="azione" />
                                         <input type='hidden' name='view' value='${g.id}'>
-                                        <input type='submit' value='Vedi Gruppo'>
+                                        <input type='submit' class="btn btn-primary" value='Vedi Gruppo'>
                                     </form>
                                 </div>
                             </div>
@@ -73,13 +80,14 @@
                                 <form action='ControllerAmministrazioneServlet' method='POST' >
                                     <input type="hidden" value="amministra" name="azione" />
                                     <input type='hidden' name='id' value=' ${g.id}'>
-                                    <input type='submit' value='Amministra'>
+                                    <input type='submit' class="btn btn-primary" value='Amministra'>
                                 </form>
                             </div>
                         </c:if>
                     </div>
                 </div>
             </c:forEach>
+                    </div>
             <c:forEach var="g" items="${listaGruppiPubblici}"> 
                 <div class='gruppo_blocco'>
                     <div class='nome_gruppo'>
@@ -90,18 +98,14 @@
                             <form action='ControllerGruppoServlet' method='POST' >
                                 <input type="hidden" value="listapostpubblici" name="azione" />
                                 <input type='hidden' name='view' value='${g.id}'>
-                                <input type='submit' value='Vedi Gruppo'>
+                                <input type='submit' class="btn btn-primary" value='Vedi Gruppo'>
                             </form>
                         </div>
                     </div>
                 </div>
             </c:forEach>
-        </div>
-        <div class='torna_gruppo'>
-            <form action='CommonFunctionsServlet' method = 'POST'>
-                <input type="hidden" value="home" name="azione" />
-                <input type='submit' value='Torna alla home'>
-            </form>
+
+            
         </div>
     </body>
 </html>

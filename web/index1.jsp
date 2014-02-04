@@ -24,7 +24,7 @@
 
 
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">username</label>
+                <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputEmail3" placeholder="username" name="username">
                 </div>
@@ -49,7 +49,7 @@
                 } else {
                      out.println("<div class='alert alert-danger'>");
                     out.println(request.getAttribute("message"));
-out.println("</div>");
+                    out.println("</div>");
                 }
                 
             %> 

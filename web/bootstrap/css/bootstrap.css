@@ -5258,6 +5258,7 @@ a.list-group-item.active > .badge,
     line-height: 2.1428571435;
     color: inherit;
     background-color: #eeeeee;
+    box-shadow: 10px 0px 5px #C2C2C2;
 }
 
 .jumbotron h1 {
@@ -7301,7 +7302,7 @@ td.visible-print {
     float:left;
     width: 100px;
     height: 30px;
-    margin-left: 120px;
+    
 
     margin-right: 90px;
 }
@@ -7327,7 +7328,7 @@ td.visible-print {
     font-size: 30px;
     width: 100%;
     padding-left: 0;
-
+    margin-top: 80px;
 }
 
 .menu_button{
@@ -7335,7 +7336,7 @@ td.visible-print {
     width: 100%;
     height: 50px;
     margin-bottom: 40px;
-    margin-top: 30px;
+    margin-top: 40px;
 
 }
 
@@ -7345,7 +7346,7 @@ td.visible-print {
 }
 
 .creagruppo_button input{
-    width: 150px;
+    width: 166px;
     height: 50px;
     background-color:#428bca;
 
@@ -7358,7 +7359,7 @@ td.visible-print {
 }
 
 .gruppo_button input{
-    width: 150px;
+    width: 166px;
     height: 50px;
     background-color: #428bca;
     border-color:white;
@@ -7371,7 +7372,7 @@ td.visible-print {
 
 
 .logout_button input{
-    width: 150px;
+    width: 166px;
     height: 50px;
     background-color: #428bca;
     border-color:white;
@@ -7399,8 +7400,7 @@ td.visible-print {
     display: inline;
     height: 70px;
     float: left;
-    margin-top: 10px;
-    margin-left: 150px;
+  
 }
 
 .vedi_gruppo{
@@ -7410,7 +7410,7 @@ td.visible-print {
 }
 
 .vedi_gruppo input{
-    width: 150px;
+    width: 166px;
     height: 50px;
     background-color: #428bca;
     color:white;
@@ -7423,7 +7423,7 @@ td.visible-print {
 }
 
 .amministra_gruppo input{
-    width: 150px;
+    width: 166px;
     height: 50px;
     background-color: #428bca;
     color:white;
@@ -7452,7 +7452,7 @@ td.visible-print {
 
 .aggiungi_button input{
     height: 50px;
-    width: 150px;
+    width: 166px;
 
 
 
@@ -7462,7 +7462,7 @@ td.visible-print {
 
 .upload_button input{
     height: 50px;
-    width: 150px;
+    width: 166px;
     background-color: #428bca;
     color:white;
 
@@ -7568,7 +7568,7 @@ td.visible-print {
 }
 
 .torna_gruppo input{
-    width: 150px;
+    width: 166px;
     height: 30px;
     background-color: #428bca;
     color:white;
@@ -7610,7 +7610,7 @@ td.visible-print {
 
 .modifica_bottone input{
     height: 50px;
-    width: 150px;
+    width: 166px;
     background-color: #428bca;
     color:white;
     float:left;
@@ -7679,4 +7679,22 @@ td.visible-print {
     margin-top: 20px;
 }
 
+.cred_button{
+    float:left;
+}
 
+.cred_button input{
+    width: 166px;
+    height: 50px;
+    background-color: #428bca;
+    border-color:white;
+    color: white;
+    border-bottom-color: transparent;
+    margin-right: 24px;
+
+
+}
+
+.gruppi{
+    margin-top: 50px;
+}

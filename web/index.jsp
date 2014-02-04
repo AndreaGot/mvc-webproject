@@ -18,7 +18,7 @@
         <div class="jumbotron">
 
             <h1>Benvenuto!</h1>
-            <p>accedi al nostro forum!</p>
+            <p>Accedi al nostro forum!</p>
             <form  name="entra" action="CommonFunctionsServlet" method="POST" >
 
                 <input type="hidden" value="entra" name="azione" />
