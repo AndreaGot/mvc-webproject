@@ -19,7 +19,7 @@
     </head>
     <body>
 
-        
+        <div class="jumbotron">
         <form class ="form-horizontal" role="form" name="form1" action="ControllerServlet" method="POST">
 
 
@@ -57,9 +57,9 @@ out.println("</div>");
 
 
 
-            <div class="form-group">
+            <div class="form-group" id="accedi">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <input type="submit" class="btn btn-primary" value="Accedi" name="ok" />
+                    <input type="submit" class="btn btn-success" value="Accedi" name="ok" />
                 </div>
             </div>
 
@@ -89,6 +89,7 @@ out.println("</div>");
         </form>
 
             
+            <h2>Lista dei gruppi pubblici:</h2>
             <c:forEach var="g" items="${allPublic}"> 
                 <div class='gruppo_blocco'>
                     <div class='nome_gruppo'>
@@ -98,12 +99,12 @@ out.println("</div>");
                         <div class='vedi_gruppo'>
                             <form action='ControllerPublicServlet' method='POST' >
                                 <input type='hidden' name='view' value='${g.id}'>
-                                <input type='submit' value='Vedi Gruppo'>
+                                <input type='submit' class="btn btn-primary" value='Vedi Gruppo'>
                             </form>
                         </div>
                     </div>
                 </div>
             </c:forEach>
-
+        </div>
     </body>
 </html>

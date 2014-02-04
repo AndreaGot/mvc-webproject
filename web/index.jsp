@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
         <title>JSP Page</title>
     </head>
     <body>
@@ -24,15 +25,19 @@
             }
 
         %> 
+        <div class="jumbotron">
 
-        <form class="form-horizontal" id="pd" role="form" name="entra" action="CommonFunctionsServlet" method="POST" >
+            <h1>Benvenuto!</h1>
+            <p>accedi al nostro forum!</p>
+            <form  name="entra" action="CommonFunctionsServlet" method="POST" >
 
-            <input type="hidden" value="entra" name="azione" />
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="submit" class="btn btn-primary" value="Entra" name="entra" />
-                </div>
-            </div>
-        </form>
+                <input type="hidden" value="entra" name="azione" />
+
+
+                <input type="submit" class="btn btn-success" value="Entra" name="entra" />
+
+
+            </form>
+        </div>
     </body>
 </html>
