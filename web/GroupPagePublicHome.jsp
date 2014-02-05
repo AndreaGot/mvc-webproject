@@ -19,64 +19,66 @@
     </head>
 
     <body>
-        
+
         <div class="jumbotron">
-           
+
             <h1>gruppo</h1>
-            
-            
 
-                <table class='table table-striped'>
 
-                    <thead>
-                        <tr>
-                            <th>
-                                UTENTE
-                            </th>
-                            <th>
-                                MESSAGGIO
-                            </th>
-                            <th>
-                                DATA
-                            </th>
-                        </tr>
-                    </thead
-                    <tbody>
-                        <c:if test="${empty listaPost}">
-                        <div class='post'>
-                            <h3> Non ci sono post in questo momento! </h3>
-                        </div>
-                    </c:if>
-                    <c:forEach var="p" items="${listaPost}">
 
-                        <tr class='active'>
-                            <td>
+            <table class='table table-striped'>
+
+                <thead>
+                    <tr>
+                        <th>
+                            UTENTE
+                        </th>
+                        <th>
+                            MESSAGGIO
+                        </th>
+                        <th>
+                            DATA
+                        </th>
+                    </tr>
+                </thead
+                <tbody>
+                    <c:if test="${empty listaPost}">
+                    <div class='post'>
+                        <h3> Non ci sono post in questo momento! </h3>
+                    </div>
+                </c:if>
+                <c:forEach var="p" items="${listaPost}">
+
+                    <tr class='active'>
+                        <td>
+                            <div class="autore">
                                 ${p.autore} 
-                                <img src ="<c:url value="${p.link}"/>" height ="100px" width="100px"/>
-                            </td>
+                            </div>
+                            <img src ="<c:url value="${p.link}"/>" height ="100px" width="100px"/>
+                        </td>
 
-                            <td class='contenuto'>
-                                ${p.contenuto}
-                            </td>
-                                
-                            <td>
-                                ${p.data}
-                            </td>
-                        </tr>
+                        <td class='contenuto'>
+                            ${p.contenuto}
+                        </td>
 
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        <td>
+                            ${p.data}
+                        </td>
+                    </tr>
 
-               
-            
+                </c:forEach>
+                </tbody>
+            </table>
 
-           
+
+
+
+
         </div>
-            
-            
-            <% session.invalidate(); %>
-            
-        
+
+
+        <% session.invalidate();%>
+
+
     </body>
 </html>

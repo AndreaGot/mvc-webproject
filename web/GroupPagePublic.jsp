@@ -59,7 +59,9 @@
 
                         <tr class='active'>
                             <td>
+                                <div class="autore">
                                 ${p.autore} 
+                                </div>
                                 <img src ="<c:url value="${p.link}"/>" height ="100px" width="100px"/>
                             </td>
 
