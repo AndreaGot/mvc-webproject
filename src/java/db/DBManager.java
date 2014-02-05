@@ -4,6 +4,7 @@
  */
 package db;
 
+import com.oreilly.servlet.MultipartRequest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -151,18 +152,18 @@ public class DBManager implements Serializable {
      * @return null
      * @throws java.sql.SQLException
      */
-    public boolean registrazione(HttpServletRequest request) throws SQLException {
+    public boolean registrazione(HttpServletRequest request, MultipartRequest multi, String file) throws SQLException {
 
         // usare SEMPRE i PreparedStatement, anche per query banali. 
         // *** MAI E POI MAI COSTRUIRE LE QUERY CONCATENANDO STRINGHE !!!! 
         FileInputStream fis = null;
         stm = connect.prepareStatement("INSERT INTO `utente` (`Username`,`password`,`Email`,`Nome_completo`, `Avatar`) VALUES (?,?,?,?,?); ");
         try {
-            stm.setString(1, request.getParameter("username").toString());
-            stm.setString(2, request.getParameter("password").toString());
-            stm.setString(3, request.getParameter("email").toString());
-            stm.setString(4, request.getParameter("nome_completo").toString());
-            File image = new File(request.getParameter("avatar").toString());
+            stm.setString(1, multi.getParameter("username").toString());
+            stm.setString(2, multi.getParameter("password").toString());
+            stm.setString(3, multi.getParameter("email").toString());
+            stm.setString(4, multi.getParameter("nome_completo").toString());
+            File image = new File(file);
             try {
                 fis = new FileInputStream(image);
             } catch (FileNotFoundException ex) {
@@ -194,7 +195,7 @@ public class DBManager implements Serializable {
     public List<Group> trovaGruppo(HttpServletRequest req) throws SQLException {
 
         HttpSession session = req.getSession(true);
-        stm = connect.prepareStatement("SELECT * FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo=GU.Id_gruppo) WHERE GU.Id_utente = ?");
+        stm = connect.prepareStatement("SELECT DISTINCT * FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo=GU.Id_gruppo) WHERE GU.Id_utente = ?");
         List<Group> groups = new ArrayList<Group>();
         try {
             stm.setString(1, (session.getAttribute("userid").toString()));
@@ -680,7 +681,7 @@ public class DBManager implements Serializable {
     public List<Group> trovaGruppoPubblico(HttpServletRequest req) throws SQLException {
 
         HttpSession session = req.getSession(true);
-        stm = connect.prepareStatement("SELECT * FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo = GU.Id_gruppo) WHERE G.pubblico =1 AND G.Nome NOT IN (SELECT G.nome FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo = GU.Id_gruppo)WHERE GU.Id_utente =?)");
+        stm = connect.prepareStatement("SELECT DISTINCT G.nome, G.Id_proprietario, G.Id_gruppo FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo = GU.Id_gruppo) WHERE G.pubblico =1 AND G.Nome NOT IN (SELECT G.nome FROM (scigot.gruppo G INNER JOIN scigot.gruppo_utente GU ON G.Id_gruppo = GU.Id_gruppo)WHERE GU.Id_utente =?)");
         List<Group> groups = new ArrayList<Group>();
         try {
             stm.setString(1, (session.getAttribute("userid").toString()));
@@ -757,12 +758,12 @@ public class DBManager implements Serializable {
         return true;
     }
     
-    public Boolean settaAvatar(HttpServletRequest req) throws SQLException {
+    public Boolean settaAvatar(HttpServletRequest req, String percorso) throws SQLException {
         HttpSession session = req.getSession(false);
         FileInputStream fis = null;
         stm = connect.prepareStatement("UPDATE `utente` SET `Avatar`= ? WHERE `Id_utente` = ? ");
         try {
-            File image = new File(req.getParameter("cambiaAvatar").toString());
+            File image = new File(percorso);
             try {
                 fis = new FileInputStream(image);
             } catch (FileNotFoundException ex) {

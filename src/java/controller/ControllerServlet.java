@@ -87,21 +87,6 @@ public class ControllerServlet extends HttpServlet {
         } else if (azione.equals("login")) {
             view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
-        } else if (azione.equals("SalvaDatiRegistrazione")) {
-            //Inserimento dati registrazione nel DB
-            try {
-                esito = manager.registrazione(request);
-            } catch (SQLException ex) {
-                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            if (esito == true) {
-                request.setAttribute("message", "Iscrizione avvenuta con successo!");
-            } else {
-                request.setAttribute("message", "C'è stato un problema :(");
-            }
-            view = request.getRequestDispatcher("index.jsp");
-            view.forward(request, response);
 
         } else if (azione.equals("accedi")) {
 

@@ -4,13 +4,17 @@
  */
 package controller;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import db.DBManager;
 import db.Group;
 import db.Invito;
 import db.Post;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -58,7 +62,9 @@ public class ControllerGruppoServlet extends HttpServlet {
             rd.forward(request, response);
         }
 
-        String azione = request.getParameter("azione");
+        String azione = null;
+        azione = request.getParameter("azione");
+        
 
         if (azione.equals("logout")) {
 
@@ -266,22 +272,7 @@ public class ControllerGruppoServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
             rd.forward(request, response);
         } else if (azione.equals("cambiaavatar")) {
-            Boolean fatto = false;
-            try {
-                fatto = manager.settaAvatar(request);
-            } catch (SQLException ex) {
-                Logger.getLogger(ControllerGruppoServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            if (fatto) {
-                request.setAttribute("message", "Avatar cambiato con successo!");
-            } else {
-                request.setAttribute("message", "Avatar non cambiato :(");
-            }
-
-
-            RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.jsp");
-            rd.forward(request, response);
+            
         } else if (azione.equals("chiudigruppo")) {
             
             Boolean fatto = false;
