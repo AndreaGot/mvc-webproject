@@ -28,11 +28,11 @@
             }
 
         %>
-        <div>
-            <div class='panel panel-default' id='TitoloGruppo'>
-                Gruppo
-            </div>
-            <div class='content'>
+        <div class="jumbotron">
+            
+            <h1>Gruppo</h1>
+            
+            
 
                 <table class='table table-striped'>
 
@@ -48,7 +48,7 @@
                                 DATA
                             </th>
                         </tr>
-                    </thead
+                    </thead>
                     <tbody>
                         <c:if test="${empty listaPost}">
                         <div class='post'>
@@ -66,7 +66,7 @@
                             <td class='contenuto'>
                                 ${p.contenuto}
                             </td>
-                                $
+                                
                             <td>
                                 ${p.data}
                             </td>
@@ -75,24 +75,10 @@
                     </c:forEach>
                     </tbody>
                 </table>
-
+ 
                
             </div>
 
-            <div class='tasti_indietro'>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type="hidden" value="indietro" name="azione" />
-                        <input type='submit' value='Torna ai tuoi gruppi'>
-                    </form>
-                </div>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
-                        <input type="hidden" value="home" name="azione" />
-                        <input type='submit' value='Torna alla home'>
-                    </form>
-                </div>
-            </div>
+           
     </body>
 </html>

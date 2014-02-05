@@ -20,11 +20,11 @@
 
     <body>
         
-        <div>
-            <div class='panel panel-default' id='TitoloGruppo'>
-                Gruppo
-            </div>
-            <div class='content'>
+        <div class="jumbotron">
+           
+            <h1>gruppo</h1>
+            
+            
 
                 <table class='table table-striped'>
 
@@ -58,7 +58,7 @@
                             <td class='contenuto'>
                                 ${p.contenuto}
                             </td>
-                                $
+                                
                             <td>
                                 ${p.data}
                             </td>
@@ -69,18 +69,14 @@
                 </table>
 
                
-            </div>
+            
 
-            <div class='tasti_indietro'>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type="hidden" value="entra" name="azione" />
-                        <input type='submit' value='Torna al login'>
-                    </form>
-                </div>
-                
+           
+        </div>
             
             
             <% session.invalidate(); %>
+            
+        
     </body>
 </html>

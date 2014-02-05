@@ -27,17 +27,16 @@
 
         %>
 
-        <div class='panel panel-default' id='TitoloGruppo'>
-            AMMINISTRA GRUPPO
-        </div>
-        <div class='content'>
+        <div class="jumbotron">
+        <h1>AMMINISTRA GRUPPO</h1>      
+        
 
             <div class='bottoni_amministra'>
                 <form action='ControllerAmministrazioneServlet' method='POST'>
                     <input type='hidden' name='id' value='<%= request.getParameter("id")%>'>
                     <input type="hidden" value="cambianome" name="azione" />
                     <div class='modifica_amministra'>
-                        <input type='submit' value='Modifica nome'>
+                        <input type='submit' class="btn btn-primary" value='Modifica nome'>
                     </div>
                 </form>
 
@@ -45,7 +44,7 @@
                     <input type='hidden' name='id' value='<%= request.getParameter("id")%>'>
                     <input type="hidden" value="invitautente" name="azione" />
                     <div class='invita_amministra'>
-                        <input type='submit' value='Invita utente'>
+                        <input type='submit' class="btn btn-primary" value='Invita utente'>
                     </div>
                 </form>
 
@@ -53,27 +52,13 @@
                     <input type='hidden' name='id' value='<%= request.getParameter("id")%>'>
                     <input type="hidden" value="creareport" name="azione" />
                     <div class='creareport_amministra'>
-                        <input type='submit' value='Crea report'>
+                        <input type='submit' class="btn btn-primary" value='Crea report'>
                     </div>
                 </form>
 
             </div>
 
-            <div class='bottoni_indietro'>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type="hidden" value="indietro" name="azione" />
-                        <input type='submit' value='Torna ai tuoi gruppi'>
-                    </form>
-                </div>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
-
-                        <input type="hidden" value="home" name="azione" />
-                        <input type='submit' value='Torna alla home'>
-                    </form>
-                </div>
-            </div>
+            
+        </div>
     </body>
 </html>

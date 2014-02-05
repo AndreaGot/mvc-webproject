@@ -32,98 +32,97 @@
             }
 
         %>
-        <div>
-            <div class='panel panel-default' id='TitoloGruppo'>
-                Gruppo
-            </div>
-            <div class='content'>
 
-                <table class='table table-striped'>
+        <div class="jumbotron">
+            <h1> Gruppo</h1>
 
-                    <thead>
-                        <tr>
-                            <th>
-                                UTENTE
-                            </th>
-                            <th>
-                                MESSAGGIO
-                            </th>
-                            <th>
-                                DATA
-                            </th>
-                        </tr>
-                    </thead
-                    <tbody>
-                        <c:if test="${empty listaPost}">
-                        <div class='post'>
-                            <h3> Non ci sono post in questo momento! </h3>
-                        </div>
-                    </c:if>
-                    <c:forEach var="p" items="${listaPost}">
 
-                        <tr class='active'>
-                            <td>
+
+            <table class='table table-striped'>
+
+                <thead>
+                    <tr>
+                        <th>
+                            UTENTE
+                        </th>
+                        <th>
+                            MESSAGGIO
+                        </th>
+                        <th>
+                            DATA
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:if test="${empty listaPost}">
+                    <div class='post'>
+                        <h3> Non ci sono post in questo momento! </h3>
+                    </div>
+                </c:if>
+                <c:forEach var="p" items="${listaPost}">
+
+                    <tr class='active'>
+                        <td>
+                            <div class="autore">
                                 ${p.autore} 
-                                <img src ="<c:url value="${p.link}"/>" height ="100px" width="100px"/>
-                            </td>
+                            </div>
 
-                            <td class='contenuto'>
-                                ${p.contenuto}
-                            </td>
+                            <img src ="<c:url value="${p.link}"/>" height ="100px" width="100px"/>
+                        </td>
 
-                            <td>
-                                ${p.data}
-                            </td>
-                        </tr>
+                        <td class='contenuto'>
+                            ${p.contenuto}
+                        </td>
 
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        <td>
+                            ${p.data}
+                        </td>
+                    </tr>
 
-                <form action='ControllerGruppoServlet' method='POST'>
+                </c:forEach>
+                </tbody>
+            </table>
 
-                    <div class='inserisci_commento'>
-                        <input type='text' name='contenuto'   value='Scrivi il tuo commento' autocomplete='off' />
-                    </div> 
-                    <div class='aggiungi_button'>
-                        <input type='submit' name='AggiungiPost' value='Aggiungi'/>
-                    </div>
-                    <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
-                    <input type="hidden" value="nuovopost" name="azione" />
-                </form>
+            <form action='ControllerGruppoServlet' method='POST'>
 
+                <div class='inserisci_commento'>
 
+                    <div class="form-group">
+                       
+                        <div class="col-sm-10">
 
-                <form enctype='multipart/form-data' action='UploadController' method='POST' >
-                    <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
-                    <input type="hidden" value="nuovoupload" name="azione" />
-
-                    <div class='upload_button'>
-                        <input type='submit' value='Upload'>
-                    </div>
-
-                    <div class='sceglifile'>
-                        <input class='scegli_button' type='file' name='file'>
+                            <input type='text' class="form-control" id="inputEmail3" placeholder="Inserisci Commento" name='contenuto'   value='Scrivi il tuo commento' autocomplete='off' />
+                        </div>
                     </div>
 
 
-                </form>
-            </div>
-
-            <div class='tasti_indietro'>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type="hidden" value="indietro" name="azione" />
-                        <input type='submit' value='Torna ai tuoi gruppi'>
-                    </form>
+                </div> 
+                <div class='aggiungi_button'>
+                    <input type='submit' class="btn btn-primary" name='AggiungiPost' value='Aggiungi'/>
                 </div>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
-                        <input type="hidden" value="home" name="azione" />
-                        <input type='submit' value='Torna alla home'>
-                    </form>
+                <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
+                <input type="hidden" value="nuovopost" name="azione" />
+            </form>
+
+
+
+            <form enctype='multipart/form-data' action='UploadController' method='POST' >
+                <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
+                <input type="hidden" value="nuovoupload" name="azione" />
+
+                <div class='upload_button'>
+                    <input type='submit' class="btn btn-primary" value='Upload'>
                 </div>
-            </div>
+
+                <div class='sceglifile'>
+                    <input   type='file' name='file'>
+                </div>
+
+
+            </form>
+
+
+
+        </div>
     </body>
 </html>

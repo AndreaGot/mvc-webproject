@@ -27,41 +27,38 @@
 
         %>
 
-        <div class='panel panel-default' id='TitoloGruppo'>
-            MODIFICA NOME
-        </div>
 
-        <div class='content'>
+
+
+
+
+        <div class="jumbotron">
+
+            <h1> MODIFICA NOME</h1>
 
             <form action='ControllerAmministrazioneServlet' method='POST'>
                 <input type='hidden' name='id' value='<%= request.getParameter("id")%>'>
                 <input type="hidden" value="nuovonome" name="azione" />
-                <div class='modifica_textbox'>
-                    <input type='text' name='nome' value='Inserisci il nome'>
-                </div>
-                <div>
-                    <label for="pubblico">Pubblico?</label> <input type="checkbox" name="public" id="pubblico"/>
-                </div>
-                <div class='modifica_bottone'>
-                    <input type='submit' value='Modifica nome'>
-                </div>
+                
+
+                    <div class="form-group">
+                        <label  for="inputEmail3" class="col-sm-2 control-label" id="credenziali">Inserire nuovo nome</label>
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" id="inputEmail3" placeholder="Cambia Nome" name='nome' value='Inserisci il nome'>
+                        </div>
+                    </div>
+
+                
+                
+                    <label for="pubblico">Gruppo Pubblico</label> <input type="checkbox" name="public" id="pubblico"/>
+                
+                    <div id="ceck" class="modifica_bottone">
+                    <input type='submit' class="btn btn-primary" value='Modifica nome'>
+                    </div>
 
             </form>
 
-            <div class='tasti_indietro'>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type="hidden" value="indietro" name="azione" />
-                        <input type='submit' value='Torna ai tuoi gruppi'>
-                    </form>
-                </div>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type="hidden" value="home" name="azione" />
-                        <input type='submit' value='Torna alla home'>
-                    </form>
-                </div>
-            </div>
+
         </div>
     </body>
 </html>

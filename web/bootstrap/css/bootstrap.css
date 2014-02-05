@@ -1754,6 +1754,7 @@ table th[class*="col-"] {
 .table > tbody > tr.active > th,
 .table > tfoot > tr.active > th {
     /* background-color: #f5f5f5;*/
+    height: 130px;
 }
 
 .table > thead > tr > td.success,
@@ -7438,13 +7439,14 @@ td.visible-print {
     float: left;
     margin-bottom: 30px;
     word-wrap:break-word;
-
+    margin-top :17px;
 }
 
 
 
-.sceglifile{
-    margin-bottom: 30px;
+.sceglifile input{
+    margin-left: 15px;
+    font-size: 80%;
 }
 
 
@@ -7608,11 +7610,7 @@ td.visible-print {
     float: left;
     margin-top: 50px;
 }
-.modifica_bottone{
-    height: 100px;
-    margin-top:30px;
-    
-}
+
 .modifica_bottone input{
     height: 50px;
     width: 166px;
@@ -7626,7 +7624,7 @@ td.visible-print {
 
 
 .contenuto{
-    width: 500px;
+    width: 400px;
     word-break:  break-all;
 
 }
@@ -7683,6 +7681,9 @@ td.visible-print {
 .col-sm-2.control-label#credenziali{
     width: 50%;
 }
+.col-sm-2.control-label#change{
+    width: 50%;
+}
 
 
 .form-horizontal#re_page{
@@ -7721,4 +7722,24 @@ td.visible-print {
 }
 label#ceck{
     padding-left: 15px;
+    
+}
+.bottoni_amministra{
+    height: 100px;
+}
+
+.active{
+    font-size: 75%;
+    
+}
+
+.modifica_bottone{
+    height: 100px;
+}
+
+.aggiungi_button{
+    float: right;
+}
+.upload_button{
+    float: right;
 }

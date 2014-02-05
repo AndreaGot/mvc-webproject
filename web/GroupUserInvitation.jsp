@@ -27,39 +27,33 @@
 
         %>
 
-        <div class='panel panel-default' id='TitoloGruppo'>
-            INVITA UTENTE
-        </div>
+        <div class="jumbotron">
+            <h1>INVITA UTENTE</h1>
+        
 
-        <div class='content'>
+        
 
             <form action='ControllerAmministrazioneServlet' method='POST'>
                 <input type="hidden" value="nuovoinvito" name="azione" />
                 <input type='hidden' name='idgruppo' value='<%= request.getParameter("id")%>'>
-                <div class='modifica_textbox'>
-                    <input type='text' name='nome' value='Username utente'>
-                </div>
-                <div class='modifica_bottone'>
-                    <input type='submit' value='Invita utente'>
-                </div>
+                
+                   
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label" id="credenziali">Inserire Username Utente</label>
+                        <div class="col-sm-10">
+                    <input type='text' class="form-control" id="inputEmail3" placeholder="Username Utente" name='nome' value='Username utente'>
+                        </div>
+                    </div>
+                
+               
+                
+                
+                    <input type='submit' class="btn btn-primary" value='Invita utente'>
+                
             </form>
 
-            <div class='tasti_indietro'>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type="hidden" value="indietro" name="azione" />
-                        <input type='submit' value='Torna ai tuoi gruppi'>
-                    </form>
-                </div>
-                <div class='torna_gruppo'>
-                    <form action='CommonFunctionsServlet' method = 'POST'>
-                        <input type='hidden' name='view' value='<%= request.getParameter("view")%>'>
-                        <input type="hidden" value="home" name="azione" />
-                        <input type='submit' value='Torna alla home'>
-                    </form>
-                </div>
-            </div>
-        </div>
+            
+    </div>
     </body>
 </html>
 
