@@ -15,9 +15,9 @@ import java.util.Date;
  */
 public class User implements Serializable {
 
-    private String username;
-    private String password;
-    private String email;
+    public String username;
+    public String password;
+    public String email;
     public String nome_completo;
     public String lastLogin;
     public String id;
