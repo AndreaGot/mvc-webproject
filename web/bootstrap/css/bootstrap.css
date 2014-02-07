@@ -7673,7 +7673,9 @@ td.visible-print {
 .col-sm-2.control-label#registra3{
     width: 24%;
 }
-
+.form-group input#avatar{
+    font-size:80%;
+}
 .col-sm-2.control-label#recupera{
     width: 36%;
 }

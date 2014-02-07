@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
-                        <input type='text' class="form-control" id="inputPassword3" placeholder="Nome Gruppo" name='creaGruppoTextbox' value='Inserire nome gruppo'>
+                        <input type='text' class="form-control" id="inputPassword3" placeholder="Nome Gruppo" name='creaGruppoTextbox' required>
                         <input type="hidden" value="confermagruppo" name="azione" />
                     </div>
                 </div>

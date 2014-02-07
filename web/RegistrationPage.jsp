@@ -26,14 +26,14 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label" id="registra">Inserisci username</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="username" value="username" />
+                        <input required type="text" class="form-control" id="inputPassword3" placeholder="Password" name="username"  />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label" id="registra">Inserisci password</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="password" value="password" />
+                        <input required type="text" class="form-control" id="inputPassword3" placeholder="Password" name="password"  />
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label" id="registra2">Inserisci nome completo</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="nome_completo" value="nome completo" />
+                        <input required type="text" class="form-control" id="inputPassword3" placeholder="Password" name="nome_completo"  />
                     </div>
                 </div>
 
@@ -51,15 +51,14 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label" id="registra3">Inserisci e-mail</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputPassword3" placeholder="Password" name="email" value="email" />
-                    </div>
+                        <input required type="text" class="form-control" id="inputPassword3" placeholder="Password" name="email" >
                 </div>
 
 
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label" id="registra3">Inserisci avatar</label>
 
-                    <input type="file" name="avatar" id="avatar">
+                    <input required type="file" name="avatar" id="avatar">
                     <input type="hidden" value="SalvaDatiRegistrazione" name="azione" />
                     <div class="col-sm-10">
                         <input type="submit" class="btn btn-primary" id="boh" name="conferma" value="conferma!" />

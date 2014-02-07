@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label  for="inputEmail3" class="col-sm-2 control-label" id="credenziali">Inserire nuovo nome</label>
                         <div class="col-sm-10">
-                            <input type='text' class="form-control" id="inputEmail3" placeholder="Cambia Nome" name='nome' value='Inserisci il nome'>
+                            <input type='text' class="form-control" id="inputEmail3" placeholder="Cambia Nome" name='nome' required>
                         </div>
                     </div>
 

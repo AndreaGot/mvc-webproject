@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label" id="credenziali">Inserisci la nuova password: </label>
                         <div class="col-sm-10" >
-                            <input type='text' class="form-control" id="inputPassword3" placeholder="Password" name='cambiaPass' value='Inserire nuova password'>
+                            <input type='password' class="form-control" id="inputPassword3" placeholder="Password" name='cambiaPass' required >
                             <input type="hidden" value="cambiapass" name="azione" />
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label" id="credenziali">Inserisci il nuovo avatar: </label>
                         <div class="col-sm-10" >
-                            <input type='file' class="form-control" id="inputPassword3" placeholder="Password" name='cambiaAvatar' value='Inserire nuovo avatar'>
+                            <input type='file' class="form-control" id="inputPassword3" placeholder="Avatar" name='cambiaAvatar' required>
                         </div>
                     </div>
                 </div>

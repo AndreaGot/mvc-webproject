@@ -91,7 +91,7 @@
                        
                         <div class="col-sm-10">
 
-                            <input type='text' class="form-control" id="inputEmail3" placeholder="Inserisci Commento" name='contenuto'   value='Scrivi il tuo commento' autocomplete='off' />
+                            <input type='text' class="form-control" id="inputEmail3" placeholder="Inserisci Commento" name='contenuto'  required  autocomplete='off' />
                         </div>
                     </div>
 
@@ -115,7 +115,7 @@
                 </div>
 
                 <div class='sceglifile'>
-                    <input   type='file' name='file'>
+                    <input  required type='file' name='file'>
                 </div>
 
 

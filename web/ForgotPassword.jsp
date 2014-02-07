@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label" id="recupera">Inserire Nome Utente:</label>
                     <div class="col-sm-10" id="b_recupera">
-                        <input type="text" class="form-control" id="inputPassword3" placeholder="Nome Utente" name="nomeutente" value="Nome utente" />
+                        <input required type="text" class="form-control" id="inputPassword3" placeholder="Nome Utente" name="nomeutente"  />
                         <input type="hidden" value="inviamail" name="azione" />
 
                         <input type="submit" id="c_recupera" class="btn btn-primary" value="Recupera" name="ok" />
